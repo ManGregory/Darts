@@ -14,5 +14,12 @@ namespace DartsConsole
         public string Name { get; set; }
         [StringLength(100)]
         public string Email { get; set; }
+
+        public ICollection<Team> TeamsAttending { get; set; }
+
+        public User()
+        {
+            TeamsAttending = new HashSet<Team>();
+        }
     }
 }
