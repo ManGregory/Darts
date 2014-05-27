@@ -11,6 +11,9 @@ namespace DartsConsole
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Rule> Rules { get; set; }
+        public DbSet<GameHeader> GameHeaders { get; set; }
+        public DbSet<GameLine> GameLines { get; set; }
 
         public DartsContext() : base("darts")
         {
