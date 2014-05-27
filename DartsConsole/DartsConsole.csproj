@@ -50,14 +50,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DartsContext.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Migrations\201405261608206_InitialCreate.cs" />
+    <Compile Include="Migrations\201405261608206_InitialCreate.Designer.cs">
+      <DependentUpon>201405261608206_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405271256566_AddGame.cs" />
+    <Compile Include="Migrations\201405271256566_AddGame.Designer.cs">
+      <DependentUpon>201405271256566_AddGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405271306299_SetNullableForeignKey.cs" />
+    <Compile Include="Migrations\201405271306299_SetNullableForeignKey.Designer.cs">
+      <DependentUpon>201405271306299_SetNullableForeignKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rule.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201405261608206_InitialCreate.resx">
+      <DependentUpon>201405261608206_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405271256566_AddGame.resx">
+      <DependentUpon>201405271256566_AddGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405271306299_SetNullableForeignKey.resx">
+      <DependentUpon>201405271306299_SetNullableForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

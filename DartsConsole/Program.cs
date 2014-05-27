@@ -15,6 +15,8 @@ namespace DartsConsole
             {
                 var user = new User {Name = "asdf", Email = "asff"};
                 var team = new Team {Name = "asdfasdf"};
+                //var rule = new Rule {Name = "501", Description = "Exactly 501"};
+                
                 db.Users.Add(user);
                 db.Teams.Add(team);
                 db.SaveChanges();
