@@ -15,7 +15,7 @@ namespace DartsConsole
         [StringLength(100)]
         public string Email { get; set; }
 
-        public ICollection<Team> TeamsAttending { get; set; }
+        public virtual ICollection<Team> TeamsAttending { get; set; }
 
         public User()
         {

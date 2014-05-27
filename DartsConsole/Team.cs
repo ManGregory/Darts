@@ -10,10 +10,11 @@ namespace DartsConsole
     class Team
     {
         public int Id { get; set; }
+
         [StringLength(200)]        
         public string Name { get; set; }
 
-        public ICollection<User> UsersAttending { get; set; }
+        public virtual ICollection<User> UsersAttending { get; set; }
 
         public Team()
         {
