@@ -9,7 +9,7 @@ namespace DartsConsole
     class GameHeader
     {
         public int Id { get; set; }
-        public DateTime? BeginTimestamp { get; set; }
+        public DateTime BeginTimestamp { get; set; }
         public DateTime? EndTimestamp { get; set; }
 
         public int RuleId { get; set; }
