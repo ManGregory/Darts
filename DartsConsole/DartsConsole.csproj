@@ -63,6 +63,10 @@
     <Compile Include="Migrations\201405271306299_SetNullableForeignKey.Designer.cs">
       <DependentUpon>201405271306299_SetNullableForeignKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405281342264_SetNotNullDateTime.cs" />
+    <Compile Include="Migrations\201405281342264_SetNotNullDateTime.Designer.cs">
+      <DependentUpon>201405281342264_SetNotNullDateTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405271306299_SetNullableForeignKey.resx">
       <DependentUpon>201405271306299_SetNullableForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405281342264_SetNotNullDateTime.resx">
+      <DependentUpon>201405281342264_SetNotNullDateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
