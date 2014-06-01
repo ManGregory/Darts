@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DartsConsole
 {
-    class GameHeader
+    public class GameHeader
     {
         public int Id { get; set; }
         public DateTime BeginTimestamp { get; set; }
@@ -16,7 +16,7 @@ namespace DartsConsole
         public virtual Rule Rule { get; set; }
     }
 
-    class GameLine
+    public class GameLine
     {
         public int Id { get; set; }
         public int Sector { get; set; }

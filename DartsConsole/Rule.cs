@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DartsConsole
 {
-    class Rule
+    public class Rule
     {
         public int Id { get; set; }
         [StringLength(50)]
