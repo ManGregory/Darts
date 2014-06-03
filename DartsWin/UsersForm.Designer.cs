@@ -50,12 +50,10 @@
             // 
             this.gridUsers.BeginEditMode = Telerik.WinControls.RadGridViewBeginEditMode.BeginEditOnEnter;
             this.gridUsers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridUsers.EnableCustomFiltering = true;
             this.gridUsers.Location = new System.Drawing.Point(0, 0);
             // 
             // gridUsers
             // 
-            this.gridUsers.MasterTemplate.EnableCustomFiltering = true;
             this.gridUsers.MasterTemplate.EnableFiltering = true;
             this.gridUsers.Name = "gridUsers";
             this.gridUsers.NewRowEnterKeyMode = Telerik.WinControls.UI.RadGridViewNewRowEnterKeyMode.EnterMovesToNextCell;
@@ -74,6 +72,7 @@
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Игроки";
             this.ThemeName = "ControlDefault";
             ((System.ComponentModel.ISupportInitialize)(this.pnlData)).EndInit();
