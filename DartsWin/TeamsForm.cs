@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DartsConsole;
 using Telerik.WinControls.UI;
 using Telerik.WinControls.UI.Localization;
 
@@ -20,19 +21,26 @@ namespace DartsWin
 
         public TeamsForm(Db connectionDb)
         {
-            // todo add users to team
             InitializeComponent();
             _connectionDb = connectionDb;
             _connectionDb.ConnectionContext.Teams.Load();
             _teamsBindingSource.DataSource = _connectionDb.ConnectionContext.Teams
-                .Local.ToBindingList().Select(t => new { Name = t.Name, UsersAttending = t.UsersAttending });            
+                .Local.ToBindingList();
             gridTeams.DataSource = _teamsBindingSource;
-            gridTeams.Columns[0].HeaderText = "Название";
-            gridTeams.Columns[0].ReadOnly = false;
-            gridTeams.Columns[1].HeaderText = "Игроки";
+            gridTeams.Columns["Name"].HeaderText = "Название";
+            gridTeams.Columns["UsersAttending"].ReadOnly = true;
+            gridTeams.Columns["UsersAttending"].HeaderText = "Игроки";
+            gridTeams.Columns["Id"].IsVisible = false;
+            gridTeams.Columns["Id"].VisibleInColumnChooser = false;
             gridTeams.CellDoubleClick += (sender, args) =>
             {
-
+                if (args.ColumnIndex == 2)
+                {
+                    using (var teamUsers = new TeamUsers(_connectionDb, (Team) _teamsBindingSource.Current))
+                    {
+                        teamUsers.ShowDialog(this);
+                    }
+                }
             };
             gridTeams.ShowHeaderCellButtons = true;
             gridTeams.ShowFilteringRow = false;

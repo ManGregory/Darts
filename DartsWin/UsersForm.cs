@@ -15,7 +15,6 @@ namespace DartsWin
         public UsersForm(Db connectionDb)
         {
             // todo save cell formatting
-            // todo save on delete
             InitializeComponent();
             _connectionDb = connectionDb;
             _connectionDb.ConnectionContext.Users.Load();
