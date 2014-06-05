@@ -1,6 +1,6 @@
 ﻿namespace DartsWin
 {
-    partial class TeamsForm
+    partial class TeamUsers
     {
         /// <summary>
         /// Required designer variable.
@@ -28,44 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gridTeams = new Telerik.WinControls.UI.RadGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.gridTeams)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridTeams.MasterTemplate)).BeginInit();
+            this.gridTeamUsers = new Telerik.WinControls.UI.RadGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTeamUsers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTeamUsers.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // gridTeams
+            // gridTeamUsers
             // 
-            this.gridTeams.BeginEditMode = Telerik.WinControls.RadGridViewBeginEditMode.BeginEditOnEnter;
-            this.gridTeams.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridTeams.Location = new System.Drawing.Point(0, 0);
+            this.gridTeamUsers.BeginEditMode = Telerik.WinControls.RadGridViewBeginEditMode.BeginEditOnEnter;
+            this.gridTeamUsers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridTeamUsers.Location = new System.Drawing.Point(0, 0);
             // 
-            // gridTeams
+            // gridTeamUsers
             // 
-            this.gridTeams.MasterTemplate.EnableFiltering = true;
-            this.gridTeams.MasterTemplate.ShowFilteringRow = false;
-            this.gridTeams.MasterTemplate.ShowHeaderCellButtons = true;
-            this.gridTeams.Name = "gridTeams";
-            this.gridTeams.NewRowEnterKeyMode = Telerik.WinControls.UI.RadGridViewNewRowEnterKeyMode.EnterMovesToNextCell;
-            this.gridTeams.ShowHeaderCellButtons = true;
-            this.gridTeams.Size = new System.Drawing.Size(292, 270);
-            this.gridTeams.TabIndex = 1;
+            this.gridTeamUsers.MasterTemplate.EnableFiltering = true;
+            this.gridTeamUsers.MasterTemplate.ShowFilteringRow = false;
+            this.gridTeamUsers.MasterTemplate.ShowHeaderCellButtons = true;
+            this.gridTeamUsers.Name = "gridTeamUsers";
+            this.gridTeamUsers.NewRowEnterKeyMode = Telerik.WinControls.UI.RadGridViewNewRowEnterKeyMode.EnterMovesToNextCell;
+            this.gridTeamUsers.ShowHeaderCellButtons = true;
+            this.gridTeamUsers.Size = new System.Drawing.Size(292, 270);
+            this.gridTeamUsers.TabIndex = 2;
             // 
-            // TeamsForm
+            // TeamUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 270);
-            this.Controls.Add(this.gridTeams);
-            this.Name = "TeamsForm";
+            this.Controls.Add(this.gridTeamUsers);
+            this.Name = "TeamUsers";
             // 
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Команды";
-            ((System.ComponentModel.ISupportInitialize)(this.gridTeams.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridTeams)).EndInit();
+            this.Text = "TeamUsers";
+            ((System.ComponentModel.ISupportInitialize)(this.gridTeamUsers.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTeamUsers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -73,6 +73,6 @@
 
         #endregion
 
-        private Telerik.WinControls.UI.RadGridView gridTeams;
+        private Telerik.WinControls.UI.RadGridView gridTeamUsers;
     }
 }

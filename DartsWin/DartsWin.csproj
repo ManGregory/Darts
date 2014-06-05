@@ -101,6 +101,12 @@
     <Compile Include="TeamsForm.Designer.cs">
       <DependentUpon>TeamsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TeamUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeamUsers.Designer.cs">
+      <DependentUpon>TeamUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="UsersForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +127,9 @@
     </Compile>
     <EmbeddedResource Include="TeamsForm.resx">
       <DependentUpon>TeamsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeamUsers.resx">
+      <DependentUpon>TeamUsers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UsersForm.resx">
       <DependentUpon>UsersForm.cs</DependentUpon>
