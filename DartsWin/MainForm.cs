@@ -33,5 +33,13 @@ namespace DartsWin
         {            
             connectionDb.ConnectionContext.Dispose();
         }
+
+        private void btnTeams_Click(object sender, EventArgs e)
+        {
+            using (var teamsForm = new TeamsForm(connectionDb))
+            {
+                teamsForm.ShowDialog(this);
+            }
+        }
     }
 }
