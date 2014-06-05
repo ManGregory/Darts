@@ -146,7 +146,7 @@ namespace DartsWin
                     return "Очистить ячейку";
                 case RadGridStringId.AddNewRowString:
                     return "Нажмите здесь, чтобы добавить новую строку";
-                case RadGridStringId.ConditionalFormattingCaption:
+                /*case RadGridStringId.ConditionalFormattingCaption:
                     return "Условное форматирование";
                 case RadGridStringId.ConditionalFormattingLblColumn:
                     return "Spalte:";
@@ -175,7 +175,7 @@ namespace DartsWin
                 case RadGridStringId.ConditionalFormattingBtnCancel:
                     return "Отмена";
                 case RadGridStringId.ConditionalFormattingBtnApply:
-                    return "Применить";
+                    return "Применить";*/
                 case RadGridStringId.ColumnChooserFormCaption:
                     return "Выбор колонок";
                 case RadGridStringId.ColumnChooserFormMessage:
