@@ -19,8 +19,10 @@ namespace DartsWin
             _connectionDb = connectionDb;
             _connectionDb.ConnectionContext.Users.Load();
             _usersBindingSource.DataSource = _connectionDb.ConnectionContext.Users
-                .Local.ToBindingList().Select(u => new {Name = u.Name, Email = u.Email});
+                .Local.ToBindingList();
             gridUsers.DataSource = _usersBindingSource;
+            gridUsers.Columns["Id"].IsVisible = gridUsers.Columns["Id"].VisibleInColumnChooser = false;
+            gridUsers.Columns["TeamsAttending"].IsVisible = gridUsers.Columns["TeamsAttending"].VisibleInColumnChooser = false;
             gridUsers.Columns["Name"].HeaderText = "Игрок";
             gridUsers.ShowHeaderCellButtons = true;
             gridUsers.ShowFilteringRow = false;
