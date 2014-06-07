@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows.Forms;
@@ -30,12 +32,17 @@ namespace DartsWin
             gridTeamUsers.ShowFilteringRow = false;
             gridTeamUsers.EnableFiltering = true;
             gridTeamUsers.FilterPopupRequired += (sender, args) => args.FilterPopup = new RadListFilterPopup(args.Column, true);
-            gridTeamUsers.CellEndEdit += (sender, args) =>
+            gridTeamUsers.UserAddedRow += (sender, args) =>
             {
-                // todo change procedure for save
-                var teams = _connectionDb.ConnectionContext.Teams.FirstOrDefault(t => t.Id == team.Id);
-                teams.UsersAttending.Clear();
+                var teams = _connectionDb.ConnectionContext.Teams.Single(t => t.Id == team.Id);
                 teams.UsersAttending.Add((User) _userBindingSource.Current);
+                Save();
+            };
+
+            gridTeamUsers.UserDeletedRow += (sender, args) =>
+            {
+                var teams = _connectionDb.ConnectionContext.Teams.Single(t => t.Id == team.Id);
+                teams.UsersAttending.Remove((User) _userBindingSource.Current);
                 Save();
             };
             gridTeamUsers.UserDeletedRow += (sender, args) => Save();
