@@ -8,17 +8,39 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DartsConsole;
+using Telerik.WinControls.UI;
+using Telerik.WinControls.UI.Localization;
 
 namespace DartsWin
 {
     public partial class MainForm : Telerik.WinControls.UI.RadForm
     {
         private Db connectionDb = new Db();
+        private BindingSource _gameBindingSource = new BindingSource();
 
         public MainForm()
         {
             InitializeComponent();
             Database.SetInitializer(new CreateDatabaseIfNotExists<DartsContext>());
+
+            connectionDb.ConnectionContext.GameHeaders.Load();
+            _gameBindingSource.DataSource = connectionDb.ConnectionContext.GameHeaders
+                .Local.ToBindingList()
+                .Select(
+                    g => new {BeginTimestamp = g.BeginTimestamp, EndTimestamp = g.EndTimestamp, RuleName = g.Rule.Name});
+            gridGames.AutoGenerateColumns = true;
+            gridGames.AllowAddNewRow = false;
+            gridGames.DataSource = _gameBindingSource;
+            gridGames.Columns[0].HeaderText = "Начало игры";
+            /*gridGames.Columns[1].HeaderText = "Конец игры";
+            gridGames.Columns[2].HeaderText = "Тип игры";*/
+            gridGames.ShowHeaderCellButtons = true;
+            gridGames.ShowFilteringRow = false;
+            gridGames.EnableFiltering = true;
+            gridGames.FilterPopupRequired += (sender, args) => args.FilterPopup = new RadListFilterPopup(args.Column, true);            
+            RadGridLocalizationProvider.CurrentProvider = new RussianRadGridLocalizationProvider();
+            gridGames.TableElement.UpdateView();
+            gridGames.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;  
         }
 
         private void btnUsers_Click(object sender, EventArgs e)
