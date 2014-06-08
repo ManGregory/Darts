@@ -14,6 +14,8 @@ namespace DartsConsole
 
         public int RuleId { get; set; }
         public virtual Rule Rule { get; set; }
+
+        public int? WinnerId { get; set; }
     }
 
     public class GameLine
