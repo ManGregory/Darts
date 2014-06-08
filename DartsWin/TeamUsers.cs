@@ -22,6 +22,7 @@ namespace DartsWin
             InitializeComponent();
             _connectionDb = connectionDb;
             _team = team;
+            this.Text = string.Format("Игроки команды \"{0}\"", team.Name);
             _teamUserBindingSource.DataSource = _team.UsersAttending.ToList();            
             _connectionDb.ConnectionContext.Users.Load();
             _userBindingSource.DataSource = _connectionDb.ConnectionContext.Users.Local.ToBindingList();

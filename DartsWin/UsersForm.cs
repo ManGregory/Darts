@@ -24,6 +24,15 @@ namespace DartsWin
             gridUsers.Columns["Id"].IsVisible = gridUsers.Columns["Id"].VisibleInColumnChooser = false;
             gridUsers.Columns["TeamsAttending"].IsVisible = gridUsers.Columns["TeamsAttending"].VisibleInColumnChooser = false;
             gridUsers.Columns["Name"].HeaderText = "Игрок";
+            /*gridUsers.CellEditorInitialized += (sender, args) =>
+            {
+                (args.ActiveEditor as RadTextBoxEditor).Multiline = true;
+                ((args.ActiveEditor as RadTextBoxEditor).EditorElement as RadTextBoxEditorElement).TextBoxItem.Multiline
+                    = true;
+                ((args.ActiveEditor as RadTextBoxEditor).EditorElement as RadTextBoxEditorElement).TextBoxItem.ScrollBars = ScrollBars.Both;
+                ((args.ActiveEditor as RadTextBoxEditor).EditorElement as RadTextBoxEditorElement).TextBoxItem
+                    .AcceptsReturn = true;
+            };*/
             gridUsers.ShowHeaderCellButtons = true;
             gridUsers.ShowFilteringRow = false;
             gridUsers.EnableFiltering = true;
@@ -49,11 +58,6 @@ namespace DartsWin
         private void gridUsers_FilterPopupRequired(object sender, FilterPopupRequiredEventArgs e)
         {
             e.FilterPopup = new RadListFilterPopup(e.Column);
-        }
-
-        private void gridUsers_CellEndEdit(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)
-        {
-            Save();
         }
     }
 }
