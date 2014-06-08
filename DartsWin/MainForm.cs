@@ -27,13 +27,14 @@ namespace DartsWin
             _gameBindingSource.DataSource = connectionDb.ConnectionContext.GameHeaders
                 .Local.ToBindingList()
                 .Select(
-                    g => new {BeginTimestamp = g.BeginTimestamp, EndTimestamp = g.EndTimestamp, RuleName = g.Rule.Name});
+                    g => new {g.BeginTimestamp, g.EndTimestamp, RuleName = g.Rule.Name, IsCommand = g.Rule.IsCommand});
             gridGames.AutoGenerateColumns = true;
             gridGames.AllowAddNewRow = false;
             gridGames.DataSource = _gameBindingSource;
             gridGames.Columns[0].HeaderText = "Начало игры";
-            /*gridGames.Columns[1].HeaderText = "Конец игры";
-            gridGames.Columns[2].HeaderText = "Тип игры";*/
+            gridGames.Columns[1].HeaderText = "Конец игры";
+            gridGames.Columns[2].HeaderText = "Тип игры";
+            gridGames.Columns[3].HeaderText = "Командная";
             gridGames.ShowHeaderCellButtons = true;
             gridGames.ShowFilteringRow = false;
             gridGames.EnableFiltering = true;
@@ -61,6 +62,22 @@ namespace DartsWin
             using (var teamsForm = new TeamsForm(connectionDb))
             {
                 teamsForm.ShowDialog(this);
+            }
+        }
+
+        private void btnRules_Click(object sender, EventArgs e)
+        {
+            using (var rulesForm = new RulesForm(connectionDb))
+            {
+                rulesForm.ShowDialog(this);
+            }
+        }
+
+        private void btnNewGame_Click(object sender, EventArgs e)
+        {
+            using (var gameForm = new GameForm(connectionDb))
+            {
+                gameForm.ShowDialog(this);
             }
         }
     }
