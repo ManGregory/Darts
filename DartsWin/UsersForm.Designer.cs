@@ -59,7 +59,6 @@
             this.gridUsers.NewRowEnterKeyMode = Telerik.WinControls.UI.RadGridViewNewRowEnterKeyMode.EnterMovesToNextCell;
             this.gridUsers.Size = new System.Drawing.Size(528, 279);
             this.gridUsers.TabIndex = 0;
-            this.gridUsers.CellEndEdit += new Telerik.WinControls.UI.GridViewCellEventHandler(this.gridUsers_CellEndEdit);
             // 
             // UsersForm
             // 
