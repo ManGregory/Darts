@@ -75,9 +75,9 @@ namespace DartsWin
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
-            using (var gameForm = new GameForm(connectionDb))
+            using (var gameSettingsForm = new GameSettingsForm(connectionDb))
             {
-                gameForm.ShowDialog(this);
+                gameSettingsForm.ShowDialog(this);
             }
         }
     }
