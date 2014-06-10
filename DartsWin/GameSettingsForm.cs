@@ -26,8 +26,7 @@ namespace DartsWin
             _connectionDb.ConnectionContext.Rules.Load();
             _connectionDb.ConnectionContext.Teams.Load();
             _connectionDb.ConnectionContext.Users.Load();
-            _rulesBindingSource.DataSource = _connectionDb.ConnectionContext.Rules.Local.ToBindingList()
-                .Select(r => new {r.Name, r.IsCommand});
+            _rulesBindingSource.DataSource = _connectionDb.ConnectionContext.Rules.Local.ToBindingList();
             _usersBindingSource.DataSource = _connectionDb.ConnectionContext.Users.Local.ToBindingList();
             _teamsBindingSource.DataSource = _connectionDb.ConnectionContext.Teams.Local.ToBindingList();
 
@@ -51,10 +50,14 @@ namespace DartsWin
             cmbGameRule.DataSource = _rulesBindingSource;
             cmbGameRule.ValueMember = "Id";
             cmbGameRule.DisplayMember = "Name";
-            cmbGameRule.MultiColumnComboBoxElement.Columns[0].HeaderText = "Игра";
-            cmbGameRule.MultiColumnComboBoxElement.Columns[0].Width = 60;
-            cmbGameRule.MultiColumnComboBoxElement.Columns[1].HeaderText = "Командная";
-            cmbGameRule.MultiColumnComboBoxElement.Columns[1].Width = 75;
+            cmbGameRule.MultiColumnComboBoxElement.Columns["Id"].IsVisible =
+                cmbGameRule.MultiColumnComboBoxElement.Columns["Id"].VisibleInColumnChooser = 
+                cmbGameRule.MultiColumnComboBoxElement.Columns["Description"].IsVisible =
+                cmbGameRule.MultiColumnComboBoxElement.Columns["Description"].VisibleInColumnChooser = false;
+            cmbGameRule.MultiColumnComboBoxElement.Columns["Name"].HeaderText = "Игра";
+            cmbGameRule.MultiColumnComboBoxElement.Columns["Name"].Width = 60;
+            cmbGameRule.MultiColumnComboBoxElement.Columns["IsCommand"].HeaderText = "Командная";
+            cmbGameRule.MultiColumnComboBoxElement.Columns["IsCommand"].Width = 75;
             cmbGameRule.MultiColumnComboBoxElement.AutoSizeDropDownHeight = true;
             cmbGameRule.MultiColumnComboBoxElement.AutoSizeMode = RadAutoSizeMode.FitToAvailableSize;
         }
@@ -74,7 +77,7 @@ namespace DartsWin
 
         private void cmbGameRule_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dynamic rule = _rulesBindingSource.Current;
+            var rule = _rulesBindingSource.Current as Rule;
             if (rule != null)
             {
                 if (rule.IsCommand)
@@ -90,7 +93,11 @@ namespace DartsWin
 
         private void btnBeginGame_Click(object sender, EventArgs e)
         {
-            var a = _members.Count;
+            using (var gameForm = new GameForm(_connectionDb, _rulesBindingSource.Current as Rule, _members))
+            {
+                gameForm.ShowDialog();
+                Close();
+            }
         }
     }
 }
