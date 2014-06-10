@@ -86,6 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Db.cs" />
+    <Compile Include="GameForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameForms.Designer.cs">
+      <DependentUpon>GameForms.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,7 @@
     <Compile Include="UsersForm.Designer.cs">
       <DependentUpon>UsersForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GameForms.resx" />
     <EmbeddedResource Include="GameSettingsForm.resx">
       <DependentUpon>GameSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
