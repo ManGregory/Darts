@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using DartsConsole;
 using Telerik.WinControls;
 
 namespace DartsWin
@@ -16,12 +17,14 @@ namespace DartsWin
     {
         private Db _connectionDb;
         private DartsConsole.Rule _rule;
+        private GameHeader _gameHeader;
         private BindingSource _membersBindingSource = new BindingSource();
 
-        public GameForm(Db connectionDb, DartsConsole.Rule rule, List<Member> members)
+        public GameForm(Db connectionDb, DartsConsole.Rule rule, List<Member> members, GameHeader gameHeader)
         {
             InitializeComponent();
             _connectionDb = connectionDb;
+            _gameHeader = gameHeader;
             _rule = rule;
             if (rule.IsCommand)
             {
@@ -35,7 +38,6 @@ namespace DartsWin
                 _membersBindingSource.DataSource = _connectionDb.ConnectionContext.Users.Local.ToBindingList()
                     .Where(m => members.Exists(m1 => m1.Id == m.Id));
             }
-
             Text = GetFormText();
             txtRuleDescription.Text = _rule.Description;
             txtRuleDescription.IsReadOnly = true;
