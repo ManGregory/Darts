@@ -92,12 +92,32 @@ namespace DartsWin
         }
 
         private void btnBeginGame_Click(object sender, EventArgs e)
-        {
-            using (var gameForm = new GameForm(_connectionDb, _rulesBindingSource.Current as Rule, _members))
+        {            
+            try
             {
-                gameForm.ShowDialog();
-                Close();
+                var gameHeader = CreateGameHeader();
+                using (var gameForm = new GameForm(_connectionDb, _rulesBindingSource.Current as Rule, _members, gameHeader))
+                {
+                    gameForm.ShowDialog();
+                    Close();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }            
+        }
+
+        private GameHeader CreateGameHeader()
+        {
+            var gameHeader = new GameHeader
+            {
+                BeginTimestamp = DateTime.Now,
+                Rule = _rulesBindingSource.Current as Rule
+            };
+            _connectionDb.ConnectionContext.GameHeaders.Add(gameHeader);
+            _connectionDb.ConnectionContext.SaveChanges();
+            return gameHeader;
         }
     }
 }

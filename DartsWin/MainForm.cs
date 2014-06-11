@@ -23,11 +23,7 @@ namespace DartsWin
             InitializeComponent();
             Database.SetInitializer(new CreateDatabaseIfNotExists<DartsContext>());
 
-            connectionDb.ConnectionContext.GameHeaders.Load();
-            _gameBindingSource.DataSource = connectionDb.ConnectionContext.GameHeaders
-                .Local.ToBindingList()
-                .Select(
-                    g => new {g.BeginTimestamp, g.EndTimestamp, RuleName = g.Rule.Name, IsCommand = g.Rule.IsCommand});
+            LoadGames();
             gridGames.AutoGenerateColumns = true;
             gridGames.AllowAddNewRow = false;
             gridGames.DataSource = _gameBindingSource;
@@ -42,6 +38,16 @@ namespace DartsWin
             RadGridLocalizationProvider.CurrentProvider = new RussianRadGridLocalizationProvider();
             gridGames.TableElement.UpdateView();
             gridGames.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;  
+        }
+
+        private void LoadGames()
+        {
+            connectionDb.ConnectionContext.GameHeaders.Load();
+            _gameBindingSource.DataSource = connectionDb.ConnectionContext.GameHeaders
+                .Local.ToBindingList()
+                .Select(
+                    g => new {g.BeginTimestamp, g.EndTimestamp, RuleName = g.Rule.Name, IsCommand = g.Rule.IsCommand})
+                .OrderByDescending(g => g.BeginTimestamp);
         }
 
         private void btnUsers_Click(object sender, EventArgs e)
@@ -78,6 +84,7 @@ namespace DartsWin
             using (var gameSettingsForm = new GameSettingsForm(connectionDb))
             {
                 gameSettingsForm.ShowDialog(this);
+                LoadGames();
             }
         }
     }
