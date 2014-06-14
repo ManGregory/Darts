@@ -85,6 +85,9 @@
     <Reference Include="TelerikData, Version=2013.3.1016.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DartsGame.cs" />
+    <Compile Include="DartsSerie.cs" />
+    <Compile Include="DartsThrow.cs" />
     <Compile Include="Db.cs" />
     <Compile Include="GameForms.cs">
       <SubType>Form</SubType>
@@ -98,6 +101,7 @@
     <Compile Include="GameSettingsForm.Designer.cs">
       <DependentUpon>GameSettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IDartsGameEnd.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +118,7 @@
       <DependentUpon>RulesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RussianRadGridLocalizationProvider.cs" />
+    <Compile Include="Score.cs" />
     <Compile Include="TeamsForm.cs">
       <SubType>Form</SubType>
     </Compile>
