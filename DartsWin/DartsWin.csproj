@@ -118,7 +118,7 @@
       <DependentUpon>RulesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RussianRadGridLocalizationProvider.cs" />
-    <Compile Include="Score.cs" />
+    <Compile Include="DartsScore.cs" />
     <Compile Include="TeamsForm.cs">
       <SubType>Form</SubType>
     </Compile>
