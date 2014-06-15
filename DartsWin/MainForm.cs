@@ -27,10 +27,13 @@ namespace DartsWin
             gridGames.AutoGenerateColumns = true;
             gridGames.AllowAddNewRow = false;
             gridGames.DataSource = _gameBindingSource;
-            gridGames.Columns[0].HeaderText = "Начало игры";
-            gridGames.Columns[1].HeaderText = "Конец игры";
-            gridGames.Columns[2].HeaderText = "Тип игры";
-            gridGames.Columns[3].HeaderText = "Командная";
+            if (gridGames.Columns.Count == 4)
+            {
+                gridGames.Columns[0].HeaderText = "Начало игры";
+                gridGames.Columns[1].HeaderText = "Конец игры";
+                gridGames.Columns[2].HeaderText = "Тип игры";
+                gridGames.Columns[3].HeaderText = "Командная";
+            }
             gridGames.ShowHeaderCellButtons = true;
             gridGames.ShowFilteringRow = false;
             gridGames.EnableFiltering = true;
