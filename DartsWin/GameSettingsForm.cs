@@ -80,14 +80,7 @@ namespace DartsWin
             var rule = _rulesBindingSource.Current as Rule;
             if (rule != null)
             {
-                if (rule.IsCommand)
-                {
-                    (gridMembers.Columns["MemberName"] as GridViewComboBoxColumn).DataSource = _teamsBindingSource;
-                }
-                else
-                {
-                    (gridMembers.Columns["MemberName"] as GridViewComboBoxColumn).DataSource = _usersBindingSource;
-                }
+                (gridMembers.Columns["MemberName"] as GridViewComboBoxColumn).DataSource = rule.IsCommand ? _teamsBindingSource : _usersBindingSource;
             }
         }
 

@@ -54,13 +54,15 @@ namespace DartsWin
 
         private void AddColumns()
         {
-            var userNameColumn = new GridViewComboBoxColumn();
-            userNameColumn.Name = "UserName";
-            userNameColumn.HeaderText = "Игрок";
-            userNameColumn.DataSource = _userBindingSource;
-            userNameColumn.ValueMember = "Id";
-            userNameColumn.DisplayMember = "Name";
-            userNameColumn.FieldName = "Id";
+            var userNameColumn = new GridViewComboBoxColumn
+            {
+                Name = "UserName",
+                HeaderText = "Игрок",
+                DataSource = _userBindingSource,
+                ValueMember = "Id",
+                DisplayMember = "Name",
+                FieldName = "Id"
+            };
             gridTeamUsers.Columns.Add(userNameColumn);
         }
 
