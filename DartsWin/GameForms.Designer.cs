@@ -60,6 +60,7 @@
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.pnlPlayerName = new Telerik.WinControls.UI.RadPanel();
             this.lblCurrentPlayer = new Telerik.WinControls.UI.RadLabel();
+            this.pnlPlayers = new Telerik.WinControls.UI.RadPanel();
             ((System.ComponentModel.ISupportInitialize)(this.grpRule)).BeginInit();
             this.grpRule.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtRuleDescription)).BeginInit();
@@ -100,6 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pnlPlayerName)).BeginInit();
             this.pnlPlayerName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lblCurrentPlayer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlPlayers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -111,7 +113,7 @@
             this.grpRule.HeaderText = "Правила";
             this.grpRule.Location = new System.Drawing.Point(0, 0);
             this.grpRule.Name = "grpRule";
-            this.grpRule.Size = new System.Drawing.Size(653, 116);
+            this.grpRule.Size = new System.Drawing.Size(746, 116);
             this.grpRule.TabIndex = 0;
             this.grpRule.Text = "Правила";
             // 
@@ -121,17 +123,18 @@
             this.txtRuleDescription.Location = new System.Drawing.Point(2, 18);
             this.txtRuleDescription.Multiline = true;
             this.txtRuleDescription.Name = "txtRuleDescription";
-            this.txtRuleDescription.Size = new System.Drawing.Size(649, 96);
+            this.txtRuleDescription.Size = new System.Drawing.Size(742, 96);
             this.txtRuleDescription.TabIndex = 0;
             this.txtRuleDescription.UseCompatibleTextRendering = false;
             // 
             // pnlGame
             // 
+            this.pnlGame.Controls.Add(this.pnlPlayers);
             this.pnlGame.Controls.Add(this.grpCurrentThrow);
             this.pnlGame.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlGame.Location = new System.Drawing.Point(0, 116);
             this.pnlGame.Name = "pnlGame";
-            this.pnlGame.Size = new System.Drawing.Size(653, 259);
+            this.pnlGame.Size = new System.Drawing.Size(746, 259);
             this.pnlGame.TabIndex = 1;
             // 
             // grpCurrentThrow
@@ -472,11 +475,19 @@
             this.lblCurrentPlayer.TabIndex = 0;
             this.lblCurrentPlayer.Text = "Игрок";
             // 
+            // pnlPlayers
+            // 
+            this.pnlPlayers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlPlayers.Location = new System.Drawing.Point(349, 0);
+            this.pnlPlayers.Name = "pnlPlayers";
+            this.pnlPlayers.Size = new System.Drawing.Size(397, 259);
+            this.pnlPlayers.TabIndex = 1;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(653, 375);
+            this.ClientSize = new System.Drawing.Size(746, 375);
             this.Controls.Add(this.pnlGame);
             this.Controls.Add(this.grpRule);
             this.Name = "GameForm";
@@ -533,6 +544,7 @@
             this.pnlPlayerName.ResumeLayout(false);
             this.pnlPlayerName.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lblCurrentPlayer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlPlayers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -572,5 +584,6 @@
         private Telerik.WinControls.UI.RadLabel lblCurrentPlayer;
         private Telerik.WinControls.UI.RadButton btnNext;
         private Telerik.WinControls.UI.RadLabel lblSerieNum;
+        private Telerik.WinControls.UI.RadPanel pnlPlayers;
     }
 }
