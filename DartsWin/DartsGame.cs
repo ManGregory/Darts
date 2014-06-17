@@ -8,7 +8,7 @@ namespace DartsWin
 {
     abstract class DartsGame
     {
-        public List<Member> _members;
+        public List<Member> Members;
 
     }
 }

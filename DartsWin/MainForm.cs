@@ -15,7 +15,7 @@ namespace DartsWin
 {
     public partial class MainForm : Telerik.WinControls.UI.RadForm
     {
-        private Db connectionDb = new Db();
+        private Db _connectionDb = new Db();
         private BindingSource _gameBindingSource = new BindingSource();
 
         public MainForm()
@@ -45,8 +45,8 @@ namespace DartsWin
 
         private void LoadGames()
         {
-            connectionDb.ConnectionContext.GameHeaders.Load();
-            _gameBindingSource.DataSource = connectionDb.ConnectionContext.GameHeaders
+            _connectionDb.ConnectionContext.GameHeaders.Load();
+            _gameBindingSource.DataSource = _connectionDb.ConnectionContext.GameHeaders
                 .Local.ToBindingList()
                 .Select(
                     g => new {g.BeginTimestamp, g.EndTimestamp, RuleName = g.Rule.Name, IsCommand = g.Rule.IsCommand})
@@ -55,7 +55,7 @@ namespace DartsWin
 
         private void btnUsers_Click(object sender, EventArgs e)
         {
-            using (var usersForm = new UsersForm(connectionDb))
+            using (var usersForm = new UsersForm(_connectionDb))
             {
                 usersForm.ShowDialog(this);
             }
@@ -63,12 +63,12 @@ namespace DartsWin
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {            
-            connectionDb.ConnectionContext.Dispose();
+            _connectionDb.ConnectionContext.Dispose();
         }
 
         private void btnTeams_Click(object sender, EventArgs e)
         {
-            using (var teamsForm = new TeamsForm(connectionDb))
+            using (var teamsForm = new TeamsForm(_connectionDb))
             {
                 teamsForm.ShowDialog(this);
             }
@@ -76,7 +76,7 @@ namespace DartsWin
 
         private void btnRules_Click(object sender, EventArgs e)
         {
-            using (var rulesForm = new RulesForm(connectionDb))
+            using (var rulesForm = new RulesForm(_connectionDb))
             {
                 rulesForm.ShowDialog(this);
             }
@@ -84,7 +84,7 @@ namespace DartsWin
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
-            using (var gameSettingsForm = new GameSettingsForm(connectionDb))
+            using (var gameSettingsForm = new GameSettingsForm(_connectionDb))
             {
                 gameSettingsForm.ShowDialog(this);
                 LoadGames();
