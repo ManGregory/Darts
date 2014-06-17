@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design.Serialization;
 using System.Data;
 using System.Data.Entity;
 using System.Diagnostics;
@@ -22,8 +23,8 @@ namespace DartsWin
         private DartsConsole.Rule _rule;
         private GameHeader _gameHeader;
         private List<object> _members = new List<object>();
-        private User _currentUser;
         private GameFlow _gameFlow;
+        private Dictionary<User, List<DartsSerie>> _userSeries = new Dictionary<User, List<DartsSerie>>();  
 
         public GameForm(Db connectionDb, DartsConsole.Rule rule, List<Member> members, GameHeader gameHeader)
         {
@@ -51,6 +52,56 @@ namespace DartsWin
             _gameFlow = new GameFlow(_rule, _members);
             InitThrow();
             UpdateGameState();
+            AddGrids();
+        }
+
+        private void AddGrids()
+        {
+            if (_rule.IsCommand)
+            {
+                var gridCount = _members.Count;
+                for (var memberIndex = 0; memberIndex < _members.Count; memberIndex++)
+                {
+                    var member = (_members[memberIndex] as Team);
+                    pnlPlayers.Controls.Add(CreateNewTeamGrid(member, gridCount, memberIndex));
+                }
+            }
+            else
+            {
+                pnlPlayers.Controls.Add(CreateNewUserGird());
+            }
+        }
+
+        private static RadGridView CreateNewUserGird()
+        {
+            var grid = new RadGridView
+            {
+                Name = "gridPlayers",
+                Dock = DockStyle.Fill
+            };
+            return grid;
+        }
+
+        private RadGridView CreateNewTeamGrid(Team member, int gridCount, int gridNum)
+        {
+            var grid = new RadGridView
+            {
+                Name = "grid" + member.Name,
+                Width = GetGridWidth(gridCount),
+                Left = GetGridWidth(gridCount) * gridNum + 1,
+                Height = GetGridHeight()
+            };
+            return grid;
+        }
+
+        private int GetGridHeight()
+        {
+            return pnlPlayers.Height;
+        }
+
+        private int GetGridWidth(int gridCount)
+        {
+            return pnlPlayers.ClientRectangle.Width/gridCount;
         }
 
         private void UpdateGameState()
@@ -118,9 +169,26 @@ namespace DartsWin
         {
             var serie = GetCurrentSerie();
             SaveSerieToDb(serie);
+            AddSerie(_gameFlow.CurrentUser, serie);
             InitThrow();
             _gameFlow.MoveNextPlayer();
             UpdateGameState();
+        }
+
+        private void AddSerie(User user, DartsSerie serie)
+        {
+            if (_userSeries.ContainsKey(user))
+            {
+                if (_userSeries[user] == null)
+                {
+                    _userSeries[user] = new List<DartsSerie>();
+                }
+                _userSeries[user].Add(serie);
+            }
+            else
+            {
+                _userSeries.Add(user, new List<DartsSerie>(new[] {serie}));
+            }
         }
 
         private void SaveSerieToDb(DartsSerie serie)
