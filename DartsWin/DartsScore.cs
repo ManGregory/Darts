@@ -36,5 +36,10 @@
         {
             return string.Format("{0} * {1}", Sector, Factor);
         }
+
+        public int GetSum()
+        {
+            return Sector*Factor;
+        }
     }
 }

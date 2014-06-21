@@ -14,5 +14,10 @@ namespace DartsWin
         {
             Throws.AddRange(throws);
         }
+
+        public int GetSum()
+        {
+            return Throws.Sum(t => t.GetSum());
+        }
     }
 }
