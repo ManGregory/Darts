@@ -17,5 +17,10 @@ namespace DartsWin
             Number = number;
             Score = score;
         }
+
+        public int GetSum()
+        {
+            return Score.GetSum();
+        }
     }
 }
