@@ -28,6 +28,7 @@ namespace DartsWin
 
         public GameForm(Db connectionDb, DartsConsole.Rule rule, List<Member> members, GameHeader gameHeader)
         {
+            // todo add dartboard control
             InitializeComponent();
             _connectionDb = connectionDb;
             _gameHeader = gameHeader;
@@ -51,8 +52,8 @@ namespace DartsWin
 
             _gameFlow = new GameFlow(_rule, _members);
             InitThrow();
-            UpdateGameState();
             AddGrids();
+            UpdateGameState();
         }
 
         private void AddGrids()
@@ -63,43 +64,68 @@ namespace DartsWin
                 for (var memberIndex = 0; memberIndex < _members.Count; memberIndex++)
                 {
                     var member = (_members[memberIndex] as Team);
-                    pnlPlayers.Controls.Add(CreateNewTeamGrid(member, gridCount, memberIndex));
+                    pnlPlayers.Controls.Add(CreateTeamGridPanel(member, gridCount, memberIndex));
                 }
             }
             else
             {
-                pnlPlayers.Controls.Add(CreateNewUserGird());
+                pnlPlayers.Controls.Add(CreateUserGridPanel(_members.Cast<User>()));
             }
         }
 
-        private static RadGridView CreateNewUserGird()
+        private static GridPlayerPanel CreateUserGridPanel(IEnumerable<User> players)
         {
-            var grid = new RadGridView
+            var gridPanel = new GridPlayerPanel
             {
                 Name = "gridPlayers",
                 Dock = DockStyle.Fill
             };
-            return grid;
-        }
-
-        private RadGridView CreateNewTeamGrid(Team member, int gridCount, int gridNum)
-        {
-            var grid = new RadGridView
+            gridPanel.NamePanel.Visible = false;
+            foreach (var player in players)
             {
-                Name = "grid" + member.Name,
-                Width = GetGridWidth(gridCount),
-                Left = GetGridWidth(gridCount) * gridNum + 1,
-                Height = GetGridHeight()
-            };
-            return grid;
+                gridPanel.TeamGrid.Columns.Add(CreateGridColumn(player));
+            }
+            return gridPanel;
         }
 
-        private int GetGridHeight()
+        private GridPlayerPanel CreateTeamGridPanel(Team member, int gridCount, int gridNum)
+        {
+            var gridPanel = new GridPlayerPanel()
+            {
+                Name = GetGridPanelName(member),
+                Tag = member,
+                Width = GetGridPanelWidth(gridCount),
+                Left = GetGridPanelWidth(gridCount)*gridNum + 1,
+                Height = GetGridPanelHeight(),
+            };
+            gridPanel.NamePanel.Text = member.Name;
+            foreach (var user in member.UsersAttending)
+            {
+                gridPanel.TeamGrid.Columns.Add(CreateGridColumn(user));
+            }
+            return gridPanel;
+        }
+
+        private static GridViewTextBoxColumn CreateGridColumn(User user)
+        {
+            return new GridViewTextBoxColumn
+            {
+                Name = user.Id.ToString(),
+                HeaderText = user.Name
+            };
+        }
+
+        private string GetGridPanelName(Team member)
+        {
+            return "gridPanel" + member.Id.ToString();
+        }
+
+        private int GetGridPanelHeight()
         {
             return pnlPlayers.Height;
         }
 
-        private int GetGridWidth(int gridCount)
+        private int GetGridPanelWidth(int gridCount)
         {
             return pnlPlayers.ClientRectangle.Width/gridCount;
         }
@@ -108,6 +134,47 @@ namespace DartsWin
         {
             lblCurrentPlayer.Text = _gameFlow.CurrentPlayer;
             lblSerieNum.Text = _gameFlow.CurrentSerieNum.ToString();
+            foreach (GridPlayerPanel gridPanel in EnumerateControls().Where(c => c.GetType() == typeof(GridPlayerPanel)))
+            {
+                gridPanel.StatusPanel.Text = GetGameStatus(gridPanel.Tag);
+            }
+        }
+
+        private string GetGameStatus(object gridTag)
+        {
+            var team = gridTag as Team;
+            return _rule.IsCommand ? GetTeamStatusText(team) : GridUserStatusText();
+        }
+
+        private string GridUserStatusText()
+        {
+            return "";
+        }
+
+        private string GetTeamStatusText(Team team)
+        {
+            var sum = GetTeamSum(team);
+            var limit = GetGameLimit();
+            return string.Format("Сумма - {0}, Остаток - {1}", sum, (limit - sum));
+        }
+
+        private int GetTeamSum(Team team)
+        {
+            return team.UsersAttending.Sum(user => GetUserSum(user));
+        }
+
+        private int GetGameLimit()
+        {
+            if (_rule.Name == "501")
+            {
+                return 501;
+            }
+            return _rule.Name == "301" ? 301 : 0;
+        }
+
+        private int GetUserSum(User user)
+        {
+            return _userSeries.ContainsKey(user) ? _userSeries[user].Sum(s => s.GetSum()) : 0;
         }
 
         private void InitThrow()
@@ -126,11 +193,14 @@ namespace DartsWin
 
         private IEnumerable<Control> EnumerateControls()
         {
-            return from field in GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                   where typeof(Control).IsAssignableFrom(field.FieldType)
-                   let component = (Control)field.GetValue(this)
-                   where component != null
-                   select component;
+            return EnumerateControls(this);
+        }
+
+        private IEnumerable<Control> EnumerateControls(Control control)
+        {
+            var controls = control.Controls.Cast<Control>();
+            return controls.SelectMany(EnumerateControls)
+                .Concat(controls);
         }
 
         private void ThrowEditValueChanged(object sender, EventArgs eventArgs)
@@ -144,10 +214,22 @@ namespace DartsWin
                 var throwFactor = EnumerateControls().Single(e => e.Name == "edFactor" + lastNum) as NumericUpDown;
                 if (throwLabelSum != null && throwEdit != null && throwFactor != null)
                 {
-                    throwLabelSum.Text = (throwEdit.Value*throwFactor.Value).ToString();
+                    if (IsValidThrowValue(throwEdit))
+                    {
+                        throwLabelSum.Text = (throwEdit.Value * throwFactor.Value).ToString();   
+                    }
+                    else
+                    {
+                        throwEdit.Value = 1;
+                    }
                 }
             }
             lblSumSerie.Text = GetSerieSum().ToString();
+        }
+
+        private static bool IsValidThrowValue(NumericUpDown throwEdit)
+        {
+            return (throwEdit.Value >= 1 && throwEdit.Value <= 20) || (throwEdit.Value == 25);
         }
 
         private decimal GetSerieSum()
@@ -168,11 +250,39 @@ namespace DartsWin
         private void btnNext_Click(object sender, EventArgs e)
         {
             var serie = GetCurrentSerie();
-            SaveSerieToDb(serie);
+            // todo check the bust and end the team serie
+            // todo check the game end, save to db
+            SaveSerieToDb(serie);            
             AddSerie(_gameFlow.CurrentUser, serie);
+            AddGridRow(serie);
             InitThrow();
             _gameFlow.MoveNextPlayer();
             UpdateGameState();
+        }
+
+        private void AddGridRow(DartsSerie serie)
+        {
+            var grid = GetGrid();
+            if (grid != null)
+            {
+                if (grid.Rows.Count < _gameFlow.CurrentSerieNum)
+                {
+                    var row = grid.Rows.AddNew();
+                    row.Cells[_gameFlow.CurrentUser.Id.ToString()].Value = serie.GetSum();
+                }
+                else
+                {
+                    grid.Rows[_gameFlow.CurrentSerieNum - 1].Cells[_gameFlow.CurrentUser.Id.ToString()].Value =
+                        serie.GetSum();
+                }             
+            }
+        }
+
+        private RadGridView GetGrid()
+        {
+            return _rule.IsCommand
+                ? (EnumerateControls().Single(c => c.Name == GetGridPanelName(_gameFlow.CurrentTeam)) as GridPlayerPanel).TeamGrid
+                : (EnumerateControls().Single(c => c.Name == "gridPlayers") as GridPlayerPanel).TeamGrid;
         }
 
         private void AddSerie(User user, DartsSerie serie)

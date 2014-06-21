@@ -31,6 +31,7 @@
             this.grpRule = new Telerik.WinControls.UI.RadGroupBox();
             this.txtRuleDescription = new Telerik.WinControls.UI.RadTextBoxControl();
             this.pnlGame = new Telerik.WinControls.UI.RadPanel();
+            this.pnlPlayers = new Telerik.WinControls.UI.RadPanel();
             this.grpCurrentThrow = new Telerik.WinControls.UI.RadGroupBox();
             this.lblSerieNum = new Telerik.WinControls.UI.RadLabel();
             this.btnNext = new Telerik.WinControls.UI.RadButton();
@@ -60,12 +61,12 @@
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.pnlPlayerName = new Telerik.WinControls.UI.RadPanel();
             this.lblCurrentPlayer = new Telerik.WinControls.UI.RadLabel();
-            this.pnlPlayers = new Telerik.WinControls.UI.RadPanel();
             ((System.ComponentModel.ISupportInitialize)(this.grpRule)).BeginInit();
             this.grpRule.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtRuleDescription)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGame)).BeginInit();
             this.pnlGame.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlPlayers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpCurrentThrow)).BeginInit();
             this.grpCurrentThrow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lblSerieNum)).BeginInit();
@@ -101,7 +102,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pnlPlayerName)).BeginInit();
             this.pnlPlayerName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lblCurrentPlayer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pnlPlayers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -136,6 +136,14 @@
             this.pnlGame.Name = "pnlGame";
             this.pnlGame.Size = new System.Drawing.Size(746, 259);
             this.pnlGame.TabIndex = 1;
+            // 
+            // pnlPlayers
+            // 
+            this.pnlPlayers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlPlayers.Location = new System.Drawing.Point(349, 0);
+            this.pnlPlayers.Name = "pnlPlayers";
+            this.pnlPlayers.Size = new System.Drawing.Size(397, 259);
+            this.pnlPlayers.TabIndex = 1;
             // 
             // grpCurrentThrow
             // 
@@ -237,7 +245,7 @@
             // 
             this.edFactor3.Location = new System.Drawing.Point(148, 2);
             this.edFactor3.Maximum = new decimal(new int[] {
-            20,
+            3,
             0,
             0,
             0});
@@ -269,7 +277,7 @@
             // 
             this.edThrow3.Location = new System.Drawing.Point(81, 2);
             this.edThrow3.Maximum = new decimal(new int[] {
-            20,
+            50,
             0,
             0,
             0});
@@ -322,7 +330,7 @@
             // 
             this.edFactor2.Location = new System.Drawing.Point(148, 2);
             this.edFactor2.Maximum = new decimal(new int[] {
-            20,
+            3,
             0,
             0,
             0});
@@ -354,7 +362,7 @@
             // 
             this.edThrow2.Location = new System.Drawing.Point(81, 2);
             this.edThrow2.Maximum = new decimal(new int[] {
-            20,
+            50,
             0,
             0,
             0});
@@ -407,7 +415,7 @@
             // 
             this.edFactor1.Location = new System.Drawing.Point(148, 2);
             this.edFactor1.Maximum = new decimal(new int[] {
-            20,
+            3,
             0,
             0,
             0});
@@ -439,7 +447,7 @@
             // 
             this.edThrow1.Location = new System.Drawing.Point(81, 2);
             this.edThrow1.Maximum = new decimal(new int[] {
-            20,
+            50,
             0,
             0,
             0});
@@ -475,14 +483,6 @@
             this.lblCurrentPlayer.TabIndex = 0;
             this.lblCurrentPlayer.Text = "Игрок";
             // 
-            // pnlPlayers
-            // 
-            this.pnlPlayers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlPlayers.Location = new System.Drawing.Point(349, 0);
-            this.pnlPlayers.Name = "pnlPlayers";
-            this.pnlPlayers.Size = new System.Drawing.Size(397, 259);
-            this.pnlPlayers.TabIndex = 1;
-            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -503,6 +503,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtRuleDescription)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGame)).EndInit();
             this.pnlGame.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pnlPlayers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpCurrentThrow)).EndInit();
             this.grpCurrentThrow.ResumeLayout(false);
             this.grpCurrentThrow.PerformLayout();
@@ -544,7 +545,6 @@
             this.pnlPlayerName.ResumeLayout(false);
             this.pnlPlayerName.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lblCurrentPlayer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pnlPlayers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
