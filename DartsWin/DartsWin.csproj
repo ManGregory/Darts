@@ -101,6 +101,12 @@
     <Compile Include="GameSettingsForm.Designer.cs">
       <DependentUpon>GameSettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GridPlayerPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridPlayerPanel.Designer.cs">
+      <DependentUpon>GridPlayerPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="IDartsGameEnd.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -140,6 +146,9 @@
     <EmbeddedResource Include="GameForms.resx" />
     <EmbeddedResource Include="GameSettingsForm.resx">
       <DependentUpon>GameSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridPlayerPanel.resx">
+      <DependentUpon>GridPlayerPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
