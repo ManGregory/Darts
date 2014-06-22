@@ -24,20 +24,12 @@ namespace DartsWin
             gridUsers.Columns["Id"].IsVisible = gridUsers.Columns["Id"].VisibleInColumnChooser = false;
             gridUsers.Columns["TeamsAttending"].IsVisible = gridUsers.Columns["TeamsAttending"].VisibleInColumnChooser = false;
             gridUsers.Columns["Name"].HeaderText = "Игрок";
-            /*gridUsers.CellEditorInitialized += (sender, args) =>
-            {
-                (args.ActiveEditor as RadTextBoxEditor).Multiline = true;
-                ((args.ActiveEditor as RadTextBoxEditor).EditorElement as RadTextBoxEditorElement).TextBoxItem.Multiline
-                    = true;
-                ((args.ActiveEditor as RadTextBoxEditor).EditorElement as RadTextBoxEditorElement).TextBoxItem.ScrollBars = ScrollBars.Both;
-                ((args.ActiveEditor as RadTextBoxEditor).EditorElement as RadTextBoxEditorElement).TextBoxItem
-                    .AcceptsReturn = true;
-            };*/
             gridUsers.ShowHeaderCellButtons = true;
             gridUsers.ShowFilteringRow = false;
             gridUsers.EnableFiltering = true;
             gridUsers.FilterPopupRequired += gridUsers_FilterPopupRequired;
             gridUsers.UserDeletedRow += (sender, args) => Save();
+            gridUsers.CellEndEdit += (sender, args) => Save();
             RadGridLocalizationProvider.CurrentProvider = new RussianRadGridLocalizationProvider();
             gridUsers.TableElement.UpdateView();
             gridUsers.MasterTemplate.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;                   
