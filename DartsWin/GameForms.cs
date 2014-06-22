@@ -14,6 +14,7 @@ using System.Windows.Forms.VisualStyles;
 using DartsConsole;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
+using Rule = DartsConsole.Rule;
 
 namespace DartsWin
 {
@@ -24,6 +25,8 @@ namespace DartsWin
         private GameHeader _gameHeader;
         private List<object> _members = new List<object>();
         private GameFlow _gameFlow;
+        private IGameFinisher _gameFinisher;
+        private IGameBuster _gameBuster;
         private Dictionary<User, List<DartsSerie>> _userSeries = new Dictionary<User, List<DartsSerie>>();  
 
         public GameForm(Db connectionDb, DartsConsole.Rule rule, List<Member> members, GameHeader gameHeader)
@@ -50,10 +53,22 @@ namespace DartsWin
             txtRuleDescription.IsReadOnly = true;
             txtRuleDescription.DeselectAll();
 
+            _gameFinisher = GetGameFinisher(_rule);
+            _gameBuster = GetGameBuster(_rule);
             _gameFlow = new GameFlow(_rule, _members);
             InitThrow();
             AddGrids();
             UpdateGameState();
+        }
+
+        private IGameBuster GetGameBuster(Rule rule)
+        {
+            return new GameFinisher501();
+        }
+
+        private IGameFinisher GetGameFinisher(Rule rule)
+        {
+            return new GameFinisher501();
         }
 
         private void AddGrids()
@@ -133,8 +148,32 @@ namespace DartsWin
         private void UpdateGameState()
         {
             lblCurrentPlayer.Text = _gameFlow.CurrentPlayer;
-            lblSerieNum.Text = _gameFlow.CurrentSerieNum.ToString();
-            foreach (GridPlayerPanel gridPanel in EnumerateControls().Where(c => c.GetType() == typeof(GridPlayerPanel)))
+            lblSerieNum.Text = GetSerieStatusText();
+            UpdateStatusPanels();
+        }
+
+        private string GetSerieStatusText()
+        {
+            var addMessage = "";
+            var sum = _rule.IsCommand
+                ? GetTeamSum(_gameFlow.CurrentTeam)
+                : GetUserSum(_gameFlow.CurrentUser);
+            if (_gameFinisher.IsGameFinished(sum, GetCurrentSerie()))
+            {
+                addMessage = string.Format(", победитель - {0}",
+                    _rule.IsCommand ? _gameFlow.CurrentTeam.Name : _gameFlow.CurrentUser.Name);
+            }
+            if (_gameBuster.IsGameBusted(sum, GetCurrentSerie()))
+            {
+                addMessage = string.Format(", перебор - {0}",
+                    _rule.IsCommand ? _gameFlow.CurrentTeam.Name : _gameFlow.CurrentUser.Name);
+            }
+            return string.Format("Ход - {0}" + addMessage, _gameFlow.CurrentSerieNum);
+        }
+
+        private void UpdateStatusPanels()
+        {
+            foreach (GridPlayerPanel gridPanel in EnumerateControls().Where(c => c.GetType() == typeof (GridPlayerPanel)))
             {
                 gridPanel.StatusPanel.Text = GetGameStatus(gridPanel.Tag);
             }
@@ -143,12 +182,12 @@ namespace DartsWin
         private string GetGameStatus(object gridTag)
         {
             var team = gridTag as Team;
-            return _rule.IsCommand ? GetTeamStatusText(team) : GridUserStatusText();
+            return _rule.IsCommand ? GetTeamStatusText(team) : GetUserStatusText();
         }
 
-        private string GridUserStatusText()
+        private string GetUserStatusText()
         {
-            return "";
+            throw new NotImplementedException();
         }
 
         private string GetTeamStatusText(Team team)
@@ -216,20 +255,45 @@ namespace DartsWin
                 {
                     if (IsValidThrowValue(throwEdit))
                     {
-                        throwLabelSum.Text = (throwEdit.Value * throwFactor.Value).ToString();   
+                        throwLabelSum.Text = (throwEdit.Value * throwFactor.Value).ToString();
+                        UpdateDynamicStatusPanel();
+                        lblSerieNum.Text = GetSerieStatusText();
                     }
                     else
                     {
-                        throwEdit.Value = 1;
+                        throwEdit.Value = 0;
                     }
                 }
             }
             lblSumSerie.Text = GetSerieSum().ToString();
         }
 
+        private void UpdateDynamicStatusPanel()
+        {
+            var gridPanel =
+                EnumerateControls().Single(c => c.Name == GetGridPanelName(_gameFlow.CurrentTeam)) as
+                    GridPlayerPanel;
+            gridPanel.StatusPanel.Text =
+                _rule.IsCommand
+                    ? GetTeamDynamicStatusText(_gameFlow.CurrentTeam)
+                    : GetUserDynamicStatusText(_gameFlow.CurrentUser);
+        }
+
+        private string GetUserDynamicStatusText(User currentUser)
+        {
+            throw new NotImplementedException();
+        }
+
+        private string GetTeamDynamicStatusText(Team team)
+        {
+            var sum = GetTeamSum(team) + GetCurrentSerie().GetSum();
+            var limit = GetGameLimit();
+            return string.Format("Сумма - {0}, Остаток - {1}", sum, (limit - sum));            
+        }
+
         private static bool IsValidThrowValue(NumericUpDown throwEdit)
         {
-            return (throwEdit.Value >= 1 && throwEdit.Value <= 20) || (throwEdit.Value == 25);
+            return (throwEdit.Value >= 0 && throwEdit.Value <= 20) || (throwEdit.Value == 25);
         }
 
         private decimal GetSerieSum()
@@ -250,11 +314,19 @@ namespace DartsWin
         private void btnNext_Click(object sender, EventArgs e)
         {
             var serie = GetCurrentSerie();
-            // todo check the bust and end the team serie
-            // todo check the game end, save to db
             SaveSerieToDb(serie);            
             AddSerie(_gameFlow.CurrentUser, serie);
             AddGridRow(serie);
+            // todo check the game end, save to db
+            if (_gameFinisher.IsGameFinished(GetTeamSum(_gameFlow.CurrentTeam), GetCurrentSerie()))
+            {
+
+            }
+            // todo check the bust and end the team serie
+            if (_gameBuster.IsGameBusted(GetTeamSum(_gameFlow.CurrentTeam), GetCurrentSerie()))
+            {
+                _gameFlow.MoveNextTeam();
+            }
             InitThrow();
             _gameFlow.MoveNextPlayer();
             UpdateGameState();
@@ -262,7 +334,7 @@ namespace DartsWin
 
         private void AddGridRow(DartsSerie serie)
         {
-            var grid = GetGrid();
+            var grid = GetCurrentGrid();
             if (grid != null)
             {
                 if (grid.Rows.Count < _gameFlow.CurrentSerieNum)
@@ -278,7 +350,7 @@ namespace DartsWin
             }
         }
 
-        private RadGridView GetGrid()
+        private RadGridView GetCurrentGrid()
         {
             return _rule.IsCommand
                 ? (EnumerateControls().Single(c => c.Name == GetGridPanelName(_gameFlow.CurrentTeam)) as GridPlayerPanel).TeamGrid
@@ -357,100 +429,6 @@ namespace DartsWin
                 Sector =
                     (int)(EnumerateControls().Single(c => c.Name == "edThrow" + num.ToString()) as NumericUpDown).Value,
             };
-        }
-    }
-
-    public class GameFlow
-    {
-        private DartsConsole.Rule _rule;
-        private List<object> _players;
-        private int _currentTeamIndex;
-        private int _currentUserIndex;
-
-        public int CurrentSerieNum { get; private set; }
-
-        public string CurrentPlayer
-        {
-            get { return GetCurrentPlayerText(); }
-        }
-
-        public User CurrentUser
-        {
-            get { return GetCurrentUser(); }
-        }
-
-        public Team CurrentTeam
-        {
-            get
-            {
-                return GetCurrentTeam();
-            }
-        }
-
-        public GameFlow(DartsConsole.Rule rule, IEnumerable<object> players)
-        {
-            _rule = rule;
-            _players = new List<object>(players);
-            _currentTeamIndex = 0;
-            _currentUserIndex = 0;
-            CurrentSerieNum = 1;
-        }
-
-        private string GetCurrentPlayerText()
-        {
-            return _rule.IsCommand
-                ? "Команда: " + GetCurrentTeam().Name + ", Игрок: " + GetCurrentUser().Name
-                : "Игрок: " + GetCurrentUser().Name;
-        }
-
-        private Team GetCurrentTeam()
-        {
-            return _rule.IsCommand ? (_players[_currentTeamIndex] as Team) : null;
-        }
-
-        private User GetCurrentUser()
-        {
-            return _rule.IsCommand
-                ? GetCurrentTeam().UsersAttending.ToList()[_currentUserIndex]
-                : (_players[_currentUserIndex] as User);
-        }
-
-
-        public void MoveNextPlayer()
-        {
-            if (_rule.IsCommand)
-            {
-                if (_currentUserIndex + 1 >= GetCurrentTeam().UsersAttending.Count)
-                {
-                    if (_currentTeamIndex + 1 >= _players.Count)
-                    {
-                        CurrentSerieNum++;
-                        _currentTeamIndex = 0;
-                        _currentUserIndex = 0;
-                    }
-                    else
-                    {
-                        _currentTeamIndex++;
-                        _currentUserIndex = 0;
-                    }
-                }
-                else
-                {
-                    _currentUserIndex++;
-                }
-            }
-            else
-            {
-                if (_currentUserIndex + 1 >= _players.Count)
-                {
-                    CurrentSerieNum++;
-                    _currentUserIndex = 0;
-                }
-                else
-                {
-                    _currentUserIndex++;
-                }
-            }
         }
     }
 }
