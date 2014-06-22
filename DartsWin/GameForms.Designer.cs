@@ -165,7 +165,7 @@
             // 
             // lblSerieNum
             // 
-            this.lblSerieNum.Location = new System.Drawing.Point(12, 171);
+            this.lblSerieNum.Location = new System.Drawing.Point(6, 180);
             this.lblSerieNum.Name = "lblSerieNum";
             this.lblSerieNum.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.lblSerieNum.Size = new System.Drawing.Size(48, 18);
@@ -174,7 +174,7 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(234, 171);
+            this.btnNext.Location = new System.Drawing.Point(233, 176);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(110, 24);
             this.btnNext.TabIndex = 6;
@@ -188,25 +188,27 @@
             this.pnlSerie.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSerie.Location = new System.Drawing.Point(2, 135);
             this.pnlSerie.Name = "pnlSerie";
-            this.pnlSerie.Size = new System.Drawing.Size(345, 30);
+            this.pnlSerie.Size = new System.Drawing.Size(345, 32);
             this.pnlSerie.TabIndex = 5;
             // 
             // lblSumSerie
             // 
-            this.lblSumSerie.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSumSerie.ForeColor = System.Drawing.Color.DarkRed;
-            this.lblSumSerie.Location = new System.Drawing.Point(81, 1);
+            this.lblSumSerie.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblSumSerie.ForeColor = System.Drawing.Color.Red;
+            this.lblSumSerie.Location = new System.Drawing.Point(218, 6);
             this.lblSumSerie.Name = "lblSumSerie";
-            this.lblSumSerie.Size = new System.Drawing.Size(14, 21);
+            this.lblSumSerie.Size = new System.Drawing.Size(15, 19);
             this.lblSumSerie.TabIndex = 1;
             this.lblSumSerie.Text = "0";
             // 
             // radLabel4
             // 
-            this.radLabel4.Location = new System.Drawing.Point(3, 3);
+            this.radLabel4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radLabel4.ForeColor = System.Drawing.Color.Red;
+            this.radLabel4.Location = new System.Drawing.Point(3, 6);
             this.radLabel4.Name = "radLabel4";
             this.radLabel4.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.radLabel4.Size = new System.Drawing.Size(50, 18);
+            this.radLabel4.Size = new System.Drawing.Size(62, 19);
             this.radLabel4.TabIndex = 0;
             this.radLabel4.Text = "Сумма";
             // 
