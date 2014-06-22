@@ -7,7 +7,7 @@ using Telerik.WinControls.UI;
 
 namespace DartsWin
 {
-    class DartsThrow
+    public class DartsThrow
     {
         public int Number { get; set; }
         public DartsScore Score { get; set; }

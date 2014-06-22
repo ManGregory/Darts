@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DartsWin
 {
-    class DartsSerie
+    public class DartsSerie
     {
         public List<DartsThrow> Throws = new List<DartsThrow>();
 
