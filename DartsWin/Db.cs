@@ -20,7 +20,11 @@ namespace DartsWin
         
         public DartsContext ConnectionContext
         {
-            get { return _connectionContext ?? (_connectionContext = new DartsContext(_connection)); }
+            get
+            {
+                return _connectionContext ?? (_connectionContext = new DartsContext());
+                //return _connectionContext ?? (_connectionContext = new DartsContext(_connection));
+            }
             private set
             {
                 _connectionContext = value;
