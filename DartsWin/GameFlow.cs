@@ -43,64 +43,53 @@ namespace DartsWin
 
         private string GetCurrentPlayerText()
         {
-            return _rule.IsCommand
-                ? "Команда: " + GetCurrentTeam().Name + ", Игрок: " + GetCurrentUser().Name
-                : "Игрок: " + GetCurrentUser().Name;
+            return "Команда: " + GetCurrentTeam().Name + ", Игрок: " + GetCurrentUser().Name;
         }
 
         private Team GetCurrentTeam()
         {
-            return _rule.IsCommand ? (_players[_currentTeamIndex] as Team) : null;
+            return _players[_currentTeamIndex] as Team;
         }
 
         private User GetCurrentUser()
         {
-            return _rule.IsCommand
-                ? GetCurrentTeam().UsersAttending.ToList()[_currentUserIndex]
-                : (_players[_currentUserIndex] as User);
+            return GetCurrentTeam().UsersAttending.ToList()[_currentUserIndex];
         }
 
 
         public void MoveNextTeam()
         {
-            // todo move next team
-            throw new NotImplementedException();
+            _currentUserIndex = 0;
+            if (_currentTeamIndex + 1 >= _players.Count)
+            {
+                CurrentSerieNum++;
+                _currentTeamIndex = 0;
+            }
+            else
+            {
+                _currentTeamIndex++;
+            }
         }
 
         public void MoveNextPlayer()
         {
-            if (_rule.IsCommand)
+            if (_currentUserIndex + 1 >= GetCurrentTeam().UsersAttending.Count)
             {
-                if (_currentUserIndex + 1 >= GetCurrentTeam().UsersAttending.Count)
-                {
-                    if (_currentTeamIndex + 1 >= _players.Count)
-                    {
-                        CurrentSerieNum++;
-                        _currentTeamIndex = 0;
-                        _currentUserIndex = 0;
-                    }
-                    else
-                    {
-                        _currentTeamIndex++;
-                        _currentUserIndex = 0;
-                    }
-                }
-                else
-                {
-                    _currentUserIndex++;
-                }
-            }
-            else
-            {
-                if (_currentUserIndex + 1 >= _players.Count)
+                if (_currentTeamIndex + 1 >= _players.Count)
                 {
                     CurrentSerieNum++;
+                    _currentTeamIndex = 0;
                     _currentUserIndex = 0;
                 }
                 else
                 {
-                    _currentUserIndex++;
+                    _currentTeamIndex++;
+                    _currentUserIndex = 0;
                 }
+            }
+            else
+            {
+                _currentUserIndex++;
             }
         }
     }
