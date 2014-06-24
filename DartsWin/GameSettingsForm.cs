@@ -25,10 +25,12 @@ namespace DartsWin
             _connectionDb = connectionDb;
             _connectionDb.ConnectionContext.Rules.Load();
             _connectionDb.ConnectionContext.Teams.Load();
-            _connectionDb.ConnectionContext.Users.Load();
             _rulesBindingSource.DataSource = _connectionDb.ConnectionContext.Rules.Local.ToBindingList();
-            _usersBindingSource.DataSource = _connectionDb.ConnectionContext.Users.Local.ToBindingList();
-            _teamsBindingSource.DataSource = _connectionDb.ConnectionContext.Teams.Local.ToBindingList();
+            _usersBindingSource.DataSource =
+                _connectionDb.ConnectionContext.Teams.Local.ToBindingList()
+                    .Where(t => t.UsersAttending.Count == 1).ToList();
+            _teamsBindingSource.DataSource = _connectionDb.ConnectionContext.Teams.Local.ToBindingList()
+                .Where(t => t.UsersAttending.Count > 1).ToList();
 
             gridMembers.ShowGroupPanel = false;
             gridMembers.MasterTemplate.EnableGrouping = false;
