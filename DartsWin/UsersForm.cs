@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Windows.Forms;
+using DartsConsole;
 using Telerik.WinControls.UI;
 using Telerik.WinControls.UI.Localization;
 
@@ -28,6 +29,18 @@ namespace DartsWin
             gridUsers.ShowFilteringRow = false;
             gridUsers.EnableFiltering = true;
             gridUsers.FilterPopupRequired += gridUsers_FilterPopupRequired;
+            gridUsers.UserAddedRow += (sender, args) =>
+            {
+                var user = _usersBindingSource.Current as User;
+                if (user != null)
+                {
+                    var team = new Team {Name = user.Name};
+                    team.UsersAttending.Add(user);
+                    _connectionDb.ConnectionContext.Teams.Add(
+                        team);
+                }
+                Save();
+            };
             gridUsers.UserDeletedRow += (sender, args) => Save();
             gridUsers.CellEndEdit += (sender, args) => Save();
             RadGridLocalizationProvider.CurrentProvider = new RussianRadGridLocalizationProvider();
@@ -38,7 +51,7 @@ namespace DartsWin
         private void Save()
         {
             try
-            {
+            {                
                 _connectionDb.ConnectionContext.SaveChanges();
             }
             catch (Exception ex)
