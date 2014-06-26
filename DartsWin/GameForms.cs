@@ -10,8 +10,6 @@ using Rule = DartsConsole.Rule;
 
 namespace DartsWin
 {
-    // todo почистить _rule.IsCommand
-
     public partial class GameForm : RadForm
     {
         private readonly Db _connectionDb;
@@ -23,6 +21,7 @@ namespace DartsWin
         private readonly IGameBuster _gameBuster;
         private readonly Dictionary<User, List<DartsSerie>> _userSeries = new Dictionary<User, List<DartsSerie>>();  
 
+        // todo open existing game
         public GameForm(Db connectionDb, Rule rule, List<Member> members, GameHeader gameHeader)
         {
             // todo add dartboard control
@@ -258,9 +257,10 @@ namespace DartsWin
             SaveSerieToDb(serie);
             AddSerie(_gameFlow.CurrentUser, serie);
             AddGridRow(serie);
-            // todo check the game end, save to db
             if (isGameFinished)
             {
+                SwitchGui(false);
+                SaveGameEnd();
                 return;
             }
             InitThrow();
@@ -273,6 +273,18 @@ namespace DartsWin
                 _gameFlow.MoveNextPlayer();
             }
             UpdateGameState();
+        }
+
+        private void SaveGameEnd()
+        {
+            _gameHeader.EndTimestamp = DateTime.Now;
+            _gameHeader.TeamWinner = _gameFlow.CurrentTeam;
+            _connectionDb.ConnectionContext.SaveChanges();
+        }
+
+        private void SwitchGui(bool enabled)
+        {
+            grpCurrentThrow.Enabled = enabled;
         }
 
         private DartsSerie GetZeroSerie()
