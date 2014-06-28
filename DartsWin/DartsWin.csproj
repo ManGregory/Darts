@@ -100,17 +100,12 @@
     <Reference Include="TelerikData, Version=2013.3.1016.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DartsGame.cs" />
-    <Compile Include="DartsSerie.cs" />
-    <Compile Include="DartsThrow.cs" />
     <Compile Include="Db.cs" />
-    <Compile Include="GameFinisher501.cs" />
-    <Compile Include="GameFlow.cs" />
-    <Compile Include="GameForms.cs">
+    <Compile Include="GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameForms.Designer.cs">
-      <DependentUpon>GameForms.cs</DependentUpon>
+    <Compile Include="GameForm.Designer.cs">
+      <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GameSettingsForm.cs">
       <SubType>Form</SubType>
@@ -124,9 +119,6 @@
     <Compile Include="GridPlayerPanel.Designer.cs">
       <DependentUpon>GridPlayerPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="IDartsGameEnd.cs" />
-    <Compile Include="IGameBuster.cs" />
-    <Compile Include="IGameFinisher.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,7 +135,6 @@
       <DependentUpon>RulesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RussianRadGridLocalizationProvider.cs" />
-    <Compile Include="DartsScore.cs" />
     <Compile Include="TeamsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +153,9 @@
     <Compile Include="UsersForm.Designer.cs">
       <DependentUpon>UsersForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GameForm.resx">
+      <DependentUpon>GameForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameForms.resx" />
     <EmbeddedResource Include="GameSettingsForm.resx">
       <DependentUpon>GameSettingsForm.cs</DependentUpon>
@@ -208,9 +202,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DartboardControl\DartsboardControl.csproj">
+      <Project>{36a87651-eac1-41c5-95e4-30322a960fb1}</Project>
+      <Name>DartsboardControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DartsConsole\DartsConsole.csproj">
       <Project>{9da200c9-fb7a-4336-8474-6f0ed15f6b20}</Project>
       <Name>DartsConsole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DartsLogic\DartsLogic.csproj">
+      <Project>{2E2F933A-BD62-4E9C-9BA3-98069BB87DE5}</Project>
+      <Name>DartsLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
