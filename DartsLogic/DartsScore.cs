@@ -1,4 +1,4 @@
-﻿namespace DartsWin
+﻿namespace DartsLogic
 {
     public class DartsScore
     {

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
-namespace DartsWin
+namespace DartsLogic
 {
     // todo make abstract class for game with limit
 
-    class GameFinisher501 : IGameFinisher, IGameBuster
+    public class GameFinisher501 : IGameFinisher, IGameBuster
     {
         public bool IsGameFinished(int totalPoints, DartsSerie lastSerie)
         {

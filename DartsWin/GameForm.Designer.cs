@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.grpRule = new Telerik.WinControls.UI.RadGroupBox();
-            this.txtRuleDescription = new Telerik.WinControls.UI.RadTextBoxControl();
             this.pnlGame = new Telerik.WinControls.UI.RadPanel();
             this.pnlPlayers = new Telerik.WinControls.UI.RadPanel();
             this.grpCurrentThrow = new Telerik.WinControls.UI.RadGroupBox();
+            this.ctlDartbord1 = new DartsBoard.ctlDartbord();
             this.lblSerieNum = new Telerik.WinControls.UI.RadLabel();
             this.btnNext = new Telerik.WinControls.UI.RadButton();
             this.pnlSerie = new Telerik.WinControls.UI.RadPanel();
@@ -61,9 +60,7 @@
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.pnlPlayerName = new Telerik.WinControls.UI.RadPanel();
             this.lblCurrentPlayer = new Telerik.WinControls.UI.RadLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.grpRule)).BeginInit();
-            this.grpRule.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtRuleDescription)).BeginInit();
+            this.pnlGameInfo = new Telerik.WinControls.UI.RadPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGame)).BeginInit();
             this.pnlGame.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlPlayers)).BeginInit();
@@ -102,47 +99,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.pnlPlayerName)).BeginInit();
             this.pnlPlayerName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lblCurrentPlayer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlGameInfo)).BeginInit();
+            this.pnlGameInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // grpRule
-            // 
-            this.grpRule.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
-            this.grpRule.Controls.Add(this.txtRuleDescription);
-            this.grpRule.Dock = System.Windows.Forms.DockStyle.Top;
-            this.grpRule.HeaderText = "Правила";
-            this.grpRule.Location = new System.Drawing.Point(0, 0);
-            this.grpRule.Name = "grpRule";
-            this.grpRule.Size = new System.Drawing.Size(746, 116);
-            this.grpRule.TabIndex = 0;
-            this.grpRule.Text = "Правила";
-            // 
-            // txtRuleDescription
-            // 
-            this.txtRuleDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRuleDescription.Location = new System.Drawing.Point(2, 18);
-            this.txtRuleDescription.Multiline = true;
-            this.txtRuleDescription.Name = "txtRuleDescription";
-            this.txtRuleDescription.Size = new System.Drawing.Size(742, 96);
-            this.txtRuleDescription.TabIndex = 0;
-            this.txtRuleDescription.UseCompatibleTextRendering = false;
-            // 
             // pnlGame
             // 
-            this.pnlGame.Controls.Add(this.pnlPlayers);
-            this.pnlGame.Controls.Add(this.grpCurrentThrow);
-            this.pnlGame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlGame.Location = new System.Drawing.Point(0, 116);
+            this.pnlGame.Controls.Add(this.ctlDartbord1);
+            this.pnlGame.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlGame.Location = new System.Drawing.Point(385, 0);
             this.pnlGame.Name = "pnlGame";
-            this.pnlGame.Size = new System.Drawing.Size(746, 259);
+            this.pnlGame.Size = new System.Drawing.Size(578, 598);
             this.pnlGame.TabIndex = 1;
             // 
             // pnlPlayers
             // 
-            this.pnlPlayers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlPlayers.Location = new System.Drawing.Point(349, 0);
+            this.pnlPlayers.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlPlayers.Location = new System.Drawing.Point(0, 270);
             this.pnlPlayers.Name = "pnlPlayers";
-            this.pnlPlayers.Size = new System.Drawing.Size(397, 259);
+            this.pnlPlayers.Size = new System.Drawing.Size(379, 328);
             this.pnlPlayers.TabIndex = 1;
             // 
             // grpCurrentThrow
@@ -155,13 +131,25 @@
             this.grpCurrentThrow.Controls.Add(this.pnlThrow2);
             this.grpCurrentThrow.Controls.Add(this.pnlThrow1);
             this.grpCurrentThrow.Controls.Add(this.pnlPlayerName);
-            this.grpCurrentThrow.Dock = System.Windows.Forms.DockStyle.Left;
+            this.grpCurrentThrow.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpCurrentThrow.HeaderText = "Сейчас бросает";
             this.grpCurrentThrow.Location = new System.Drawing.Point(0, 0);
             this.grpCurrentThrow.Name = "grpCurrentThrow";
-            this.grpCurrentThrow.Size = new System.Drawing.Size(349, 259);
+            this.grpCurrentThrow.Size = new System.Drawing.Size(379, 255);
             this.grpCurrentThrow.TabIndex = 0;
             this.grpCurrentThrow.Text = "Сейчас бросает";
+            // 
+            // ctlDartbord1
+            // 
+            this.ctlDartbord1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctlDartbord1.Location = new System.Drawing.Point(36, 32);
+            this.ctlDartbord1.Name = "ctlDartbord1";
+            this.ctlDartbord1.Size = new System.Drawing.Size(500, 500);
+            this.ctlDartbord1.TabIndex = 8;
+            this.ctlDartbord1.NoScoreThrown += new DartsBoard.Controls.DartsBoard.NoScoreThrownEventHandler(this.ctlDartbord1_NoScoreThrown);
+            this.ctlDartbord1.SingleThrown += new DartsBoard.Controls.DartsBoard.SingleThrownEventHandler(this.ctlDartbord1_SingleThrown);
+            this.ctlDartbord1.DoubleThrown += new DartsBoard.Controls.DartsBoard.DoubleThrownEventHandler(this.ctlDartbord1_DoubleThrown);
+            this.ctlDartbord1.TripleThrown += new DartsBoard.Controls.DartsBoard.TripleThrownEventHandler(this.ctlDartbord1_TripleThrown);
             // 
             // lblSerieNum
             // 
@@ -188,7 +176,7 @@
             this.pnlSerie.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSerie.Location = new System.Drawing.Point(2, 135);
             this.pnlSerie.Name = "pnlSerie";
-            this.pnlSerie.Size = new System.Drawing.Size(345, 32);
+            this.pnlSerie.Size = new System.Drawing.Size(375, 32);
             this.pnlSerie.TabIndex = 5;
             // 
             // lblSumSerie
@@ -223,7 +211,7 @@
             this.pnlThrow3.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlThrow3.Location = new System.Drawing.Point(2, 104);
             this.pnlThrow3.Name = "pnlThrow3";
-            this.pnlThrow3.Size = new System.Drawing.Size(345, 31);
+            this.pnlThrow3.Size = new System.Drawing.Size(375, 31);
             this.pnlThrow3.TabIndex = 4;
             // 
             // lblSumThrow3
@@ -308,7 +296,7 @@
             this.pnlThrow2.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlThrow2.Location = new System.Drawing.Point(2, 74);
             this.pnlThrow2.Name = "pnlThrow2";
-            this.pnlThrow2.Size = new System.Drawing.Size(345, 30);
+            this.pnlThrow2.Size = new System.Drawing.Size(375, 30);
             this.pnlThrow2.TabIndex = 3;
             // 
             // lblSumThrow2
@@ -393,7 +381,7 @@
             this.pnlThrow1.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlThrow1.Location = new System.Drawing.Point(2, 43);
             this.pnlThrow1.Name = "pnlThrow1";
-            this.pnlThrow1.Size = new System.Drawing.Size(345, 31);
+            this.pnlThrow1.Size = new System.Drawing.Size(375, 31);
             this.pnlThrow1.TabIndex = 2;
             // 
             // lblSumThrow1
@@ -473,7 +461,7 @@
             this.pnlPlayerName.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlPlayerName.Location = new System.Drawing.Point(2, 18);
             this.pnlPlayerName.Name = "pnlPlayerName";
-            this.pnlPlayerName.Size = new System.Drawing.Size(345, 25);
+            this.pnlPlayerName.Size = new System.Drawing.Size(375, 25);
             this.pnlPlayerName.TabIndex = 1;
             // 
             // lblCurrentPlayer
@@ -485,13 +473,23 @@
             this.lblCurrentPlayer.TabIndex = 0;
             this.lblCurrentPlayer.Text = "Игрок";
             // 
+            // pnlGameInfo
+            // 
+            this.pnlGameInfo.Controls.Add(this.grpCurrentThrow);
+            this.pnlGameInfo.Controls.Add(this.pnlPlayers);
+            this.pnlGameInfo.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlGameInfo.Location = new System.Drawing.Point(0, 0);
+            this.pnlGameInfo.Name = "pnlGameInfo";
+            this.pnlGameInfo.Size = new System.Drawing.Size(379, 598);
+            this.pnlGameInfo.TabIndex = 8;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(746, 375);
+            this.ClientSize = new System.Drawing.Size(963, 598);
+            this.Controls.Add(this.pnlGameInfo);
             this.Controls.Add(this.pnlGame);
-            this.Controls.Add(this.grpRule);
             this.Name = "GameForm";
             // 
             // 
@@ -500,9 +498,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Игра";
             this.ThemeName = "ControlDefault";
-            ((System.ComponentModel.ISupportInitialize)(this.grpRule)).EndInit();
-            this.grpRule.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.txtRuleDescription)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGame)).EndInit();
             this.pnlGame.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pnlPlayers)).EndInit();
@@ -547,6 +542,8 @@
             this.pnlPlayerName.ResumeLayout(false);
             this.pnlPlayerName.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lblCurrentPlayer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlGameInfo)).EndInit();
+            this.pnlGameInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -554,8 +551,6 @@
 
         #endregion
 
-        private Telerik.WinControls.UI.RadGroupBox grpRule;
-        private Telerik.WinControls.UI.RadTextBoxControl txtRuleDescription;
         private Telerik.WinControls.UI.RadPanel pnlGame;
         private Telerik.WinControls.UI.RadGroupBox grpCurrentThrow;
         private Telerik.WinControls.UI.RadPanel pnlSerie;
@@ -587,5 +582,7 @@
         private Telerik.WinControls.UI.RadButton btnNext;
         private Telerik.WinControls.UI.RadLabel lblSerieNum;
         private Telerik.WinControls.UI.RadPanel pnlPlayers;
+        private DartsBoard.ctlDartbord ctlDartbord1;
+        private Telerik.WinControls.UI.RadPanel pnlGameInfo;
     }
 }
