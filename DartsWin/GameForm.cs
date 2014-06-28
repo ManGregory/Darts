@@ -4,7 +4,9 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using DartsBoard.Controls.DartsBoard;
 using DartsConsole;
+using DartsLogic;
 using Telerik.WinControls.UI;
 using Rule = DartsConsole.Rule;
 
@@ -33,9 +35,9 @@ namespace DartsWin
             _teams.AddRange(_connectionDb.ConnectionContext.Teams.Local.ToList()
                 .Where(m => members.Exists(m1 => m1.Id == m.Id)));
             Text = GetFormText();
-            txtRuleDescription.Text = _rule.Description;
+            /*txtRuleDescription.Text = _rule.Description;
             txtRuleDescription.IsReadOnly = true;
-            txtRuleDescription.DeselectAll();
+            txtRuleDescription.DeselectAll();*/
 
             _gameFinisher = GetGameFinisher(_rule);
             _gameBuster = GetGameBuster(_rule);
@@ -396,6 +398,38 @@ namespace DartsWin
                 Sector =
                     (int)(EnumerateControls().Single(c => c.Name == "edThrow" + num.ToString(CultureInfo.InvariantCulture)) as NumericUpDown).Value,
             };
+        }
+
+        private void ctlDartbord1_SingleThrown(object sender, DartsBoard.Controls.DartsBoard.DartbordEventArgs e)
+        {
+            SetScore(1, e);
+        }
+
+        private void SetScore(int factor, DartbordEventArgs e)
+        {
+            var edFactor =
+                (EnumerateControls().Single(c => c.Name == "edFactor" + e.Throw.ToString(CultureInfo.InvariantCulture)) as
+                    NumericUpDown);
+            var edThrow =
+                (EnumerateControls().Single(c => c.Name == "edThrow" + e.Throw.ToString(CultureInfo.InvariantCulture)) as
+                    NumericUpDown);
+            if (edFactor != null) edFactor.Value = factor;
+            if (edThrow != null) edThrow.Value = e.Score / factor;
+        }
+
+        private void ctlDartbord1_DoubleThrown(object sender, DartbordEventArgs e)
+        {
+            SetScore(2, e);
+        }
+
+        private void ctlDartbord1_NoScoreThrown(object sender, DartbordEventArgs e)
+        {
+            SetScore(1, e);
+        }
+
+        private void ctlDartbord1_TripleThrown(object sender, DartbordEventArgs e)
+        {
+            SetScore(3, e);
         }
     }
 }

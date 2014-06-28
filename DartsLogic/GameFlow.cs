@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DartsConsole;
 
-namespace DartsWin
+namespace DartsLogic
 {
     public class GameFlow
     {
-        private Rule _rule;
         private List<object> _players;
         private int _currentTeamIndex;
         private int _currentUserIndex;
@@ -34,7 +32,6 @@ namespace DartsWin
 
         public GameFlow(Rule rule, IEnumerable<object> players)
         {
-            _rule = rule;
             _players = new List<object>(players);
             _currentTeamIndex = 0;
             _currentUserIndex = 0;
