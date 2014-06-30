@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DartsEnding.cs" />
     <Compile Include="DartsGame.cs" />
     <Compile Include="DartsScore.cs" />
     <Compile Include="DartsSerie.cs" />
