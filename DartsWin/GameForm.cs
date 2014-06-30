@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using DartsBoard.Controls.DartsBoard;
 using DartsConsole;
@@ -75,7 +78,7 @@ namespace DartsWin
                 Tag = member,
                 Width = GetGridPanelWidth(gridCount),
                 Left = GetGridPanelWidth(gridCount)*gridNum + 1,
-                Height = GetGridPanelHeight(),
+                Height = GetGridPanelHeight()
             };
             gridPanel.NamePanel.Text = member.Name;
             foreach (var user in member.UsersAttending)
@@ -114,6 +117,7 @@ namespace DartsWin
             lblCurrentPlayer.Text = _gameFlow.CurrentPlayer;
             lblSerieNum.Text = GetSerieStatusText();
             UpdateStatusPanels();
+            UpdatePossibleCombinations();
         }
 
         private string GetSerieStatusText()
@@ -149,7 +153,7 @@ namespace DartsWin
         {
             var sum = GetTeamSum(team);
             var limit = GetGameLimit();
-            return string.Format("Сумма - {0}, Остаток - {1}", sum, (limit - sum));
+            return string.Format("<html>Сумма - {0}<br>Остаток - {1}</html>", sum, (limit - sum));
         }
 
         private int GetTeamSum(Team team)
@@ -205,6 +209,7 @@ namespace DartsWin
                     {
                         throwLabelSum.Text = (throwEdit.Value * throwFactor.Value).ToString(CultureInfo.InvariantCulture);
                         UpdateDynamicStatusPanel();
+                        UpdatePossibleCombinations();
                         lblSerieNum.Text = GetSerieStatusText();
                     }
                     else
@@ -214,6 +219,14 @@ namespace DartsWin
                 }
             }
             lblSumSerie.Text = GetSerieSum().ToString(CultureInfo.InvariantCulture);
+        }
+
+        private void UpdatePossibleCombinations()
+        {
+            var sum = GetTeamSum(_gameFlow.CurrentTeam) + GetCurrentSerie().GetSum();
+            var limit = GetGameLimit();
+            var series = DartsEnding.GetPossibleEndings(limit - sum);
+            lblPossibleCombinations.Text = string.Join("; ", series.Select(s => s.ToString(true)));             
         }
 
         private void UpdateDynamicStatusPanel()
@@ -228,7 +241,7 @@ namespace DartsWin
         {
             var sum = GetTeamSum(team) + GetCurrentSerie().GetSum();
             var limit = GetGameLimit();
-            return string.Format("Сумма - {0}, Остаток - {1}", sum, (limit - sum));            
+            return string.Format("<html>Сумма - {0}<br>Остаток - {1}</html>", sum, (limit - sum));            
         }
 
         private static bool IsValidThrowValue(NumericUpDown throwEdit)
@@ -268,7 +281,8 @@ namespace DartsWin
             InitThrow();
             if (isGameBusted)
             {
-                _gameFlow.MoveNextTeam();                
+                _gameFlow.MoveNextTeam();     
+                ctlDartbord1.ResetThrows();
             }
             else
             {
@@ -287,6 +301,7 @@ namespace DartsWin
         private void SwitchGui(bool enabled)
         {
             grpCurrentThrow.Enabled = enabled;
+            ctlDartbord1.Enabled = enabled;
         }
 
         private DartsSerie GetZeroSerie()
