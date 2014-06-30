@@ -43,18 +43,20 @@
             // pnlTeamName
             // 
             this.pnlTeamName.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTeamName.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.pnlTeamName.Location = new System.Drawing.Point(0, 0);
             this.pnlTeamName.Name = "pnlTeamName";
-            this.pnlTeamName.Size = new System.Drawing.Size(195, 28);
+            this.pnlTeamName.Size = new System.Drawing.Size(195, 50);
             this.pnlTeamName.TabIndex = 0;
             this.pnlTeamName.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pnlTeamStatus
             // 
             this.pnlTeamStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlTeamStatus.Location = new System.Drawing.Point(0, 230);
+            this.pnlTeamStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pnlTeamStatus.Location = new System.Drawing.Point(0, 193);
             this.pnlTeamStatus.Name = "pnlTeamStatus";
-            this.pnlTeamStatus.Size = new System.Drawing.Size(195, 28);
+            this.pnlTeamStatus.Size = new System.Drawing.Size(195, 65);
             this.pnlTeamStatus.TabIndex = 1;
             this.pnlTeamStatus.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -62,15 +64,16 @@
             // 
             this.pnlGrid.Controls.Add(this.gridTeam);
             this.pnlGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlGrid.Location = new System.Drawing.Point(0, 28);
+            this.pnlGrid.Location = new System.Drawing.Point(0, 50);
             this.pnlGrid.Name = "pnlGrid";
-            this.pnlGrid.Size = new System.Drawing.Size(195, 202);
+            this.pnlGrid.Size = new System.Drawing.Size(195, 143);
             this.pnlGrid.TabIndex = 2;
             this.pnlGrid.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gridTeam
             // 
             this.gridTeam.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridTeam.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.gridTeam.Location = new System.Drawing.Point(0, 0);
             // 
             // gridTeam
@@ -79,7 +82,7 @@
             this.gridTeam.MasterTemplate.AllowColumnReorder = false;
             this.gridTeam.Name = "gridTeam";
             this.gridTeam.ReadOnly = true;
-            this.gridTeam.Size = new System.Drawing.Size(195, 202);
+            this.gridTeam.Size = new System.Drawing.Size(195, 143);
             this.gridTeam.TabIndex = 0;
             // 
             // GridPlayerPanel

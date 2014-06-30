@@ -16,8 +16,8 @@ namespace DartsBoard
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
-
-			// TODO: Add any initialization after the InitForm call
+		    lblThrowNum.Text = mintThrow.ToString();
+		    // TODO: Add any initialization after the InitForm call
 
 		}
 
@@ -45,6 +45,7 @@ namespace DartsBoard
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctlDartbord));
             this.picDartboard = new System.Windows.Forms.PictureBox();
+            this.lblThrowNum = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDartboard)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,14 +63,25 @@ namespace DartsBoard
             this.picDartboard.TabStop = false;
             this.picDartboard.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picDartbord_MouseUp);
             // 
+            // lblThrowNum
+            // 
+            this.lblThrowNum.AutoSize = true;
+            this.lblThrowNum.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblThrowNum.Location = new System.Drawing.Point(4, 4);
+            this.lblThrowNum.Name = "lblThrowNum";
+            this.lblThrowNum.Size = new System.Drawing.Size(0, 30);
+            this.lblThrowNum.TabIndex = 1;
+            // 
             // ctlDartbord
             // 
+            this.Controls.Add(this.lblThrowNum);
             this.Controls.Add(this.picDartboard);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ctlDartbord";
             this.Size = new System.Drawing.Size(300, 300);
             ((System.ComponentModel.ISupportInitialize)(this.picDartboard)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 		#endregion
@@ -79,6 +91,13 @@ namespace DartsBoard
 		/// </summary>
 		#region Init
 
+        public int ThrowNum 
+        {
+		    get
+		    {
+		        return mintThrow;
+		    } 
+        }
 		private int mintThrow = 1;
 		private bool mIsNoScore = false;
 		private bool mIsSingle = false;
@@ -104,6 +123,7 @@ namespace DartsBoard
 
 		private int mintScore = 0;
         private PictureBox picDartboard;
+        private Label lblThrowNum;
     
 		public int Score
 		{
@@ -131,7 +151,8 @@ namespace DartsBoard
 		
 		public void ResetThrows()
 		{
-			mintThrow = 0;
+			mintThrow = 1;
+		    lblThrowNum.Text = mintThrow.ToString();
 		}
 
 		#endregion
@@ -205,7 +226,7 @@ namespace DartsBoard
 				{
 					mintThrow = 1;
 				}
-
+			    lblThrowNum.Text = mintThrow.ToString();
 			}
 			catch( Exception ex )
 			{
