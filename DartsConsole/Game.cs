@@ -24,6 +24,7 @@ namespace DartsConsole
         public int Id { get; set; }
         public int Sector { get; set; }
         public int Factor { get; set; }
+        public int ThrowNum { get; set; }
 
         public int GameHeaderId { get; set; }
         public virtual GameHeader GameHeader { get; set; }
