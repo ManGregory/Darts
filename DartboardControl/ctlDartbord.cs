@@ -228,9 +228,9 @@ namespace DartsBoard
 				}
 			    lblThrowNum.Text = mintThrow.ToString();
 			}
-			catch( Exception ex )
+			catch
 			{
-				throw ex;
+			    throw;
 			}
 
 		}
@@ -311,9 +311,9 @@ namespace DartsBoard
 
 				return intScore;
 			}
-			catch( Exception ex )
+			catch
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -349,9 +349,9 @@ namespace DartsBoard
 
 				return 6;
 			}
-			catch( Exception ex )
+			catch
 			{
-				throw ex;
+				throw;
 			}
 		}
 
@@ -381,17 +381,12 @@ namespace DartsBoard
 
 				return enumRingType.Single;
 			}
-			catch( Exception ex )
+			catch
 			{
-				throw ex;
+				throw;
 			}
 		}
 		#endregion
-
-        private void picDartbord_Click(object sender, EventArgs e)
-        {
-
-        }
 
 	}
 
