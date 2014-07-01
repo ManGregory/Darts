@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using DartsBoard.Controls.DartsBoard;
 using DartsConsole;
@@ -22,14 +19,13 @@ namespace DartsWin
         private readonly GameHeader _gameHeader;
         private readonly List<Team> _teams = new List<Team>();
         private readonly GameFlow _gameFlow;
-        private readonly IGameFinisher _gameFinisher;
-        private readonly IGameBuster _gameBuster;
+        private readonly GameChecker _gameChecker;
         private readonly Dictionary<User, List<DartsSerie>> _userSeries = new Dictionary<User, List<DartsSerie>>();  
 
         // todo open existing game
+        // todo delete member class
         public GameForm(Db connectionDb, Rule rule, List<Member> members, GameHeader gameHeader)
         {
-            // todo add dartboard control
             InitializeComponent();
             _connectionDb = connectionDb;
             _gameHeader = gameHeader;
@@ -38,26 +34,35 @@ namespace DartsWin
             _teams.AddRange(_connectionDb.ConnectionContext.Teams.Local.ToList()
                 .Where(m => members.Exists(m1 => m1.Id == m.Id)));
             Text = GetFormText();
-            /*txtRuleDescription.Text = _rule.Description;
-            txtRuleDescription.IsReadOnly = true;
-            txtRuleDescription.DeselectAll();*/
-
-            _gameFinisher = GetGameFinisher(_rule);
-            _gameBuster = GetGameBuster(_rule);
+            _gameChecker = GameCheckerFactory.GetGameChecker(_rule);
             _gameFlow = new GameFlow(_rule, _teams);
             InitThrow();
             AddGrids();
             UpdateGameState();
+            LoadExistingGame();
         }
 
-        private IGameBuster GetGameBuster(Rule rule)
+        private void LoadExistingGame()
         {
-            return new GameFinisher501();
-        }
-
-        private IGameFinisher GetGameFinisher(Rule rule)
-        {
-            return new GameFinisher501();
+            User prevUser = null;
+            foreach (
+                var gameLineRow in
+                    _connectionDb.ConnectionContext.GameLines.Where(gl => gl.GameHeaderId == _gameHeader.Id))
+            {
+                if (prevUser == null)
+                {
+                    prevUser = gameLineRow.User;
+                }
+                else if (prevUser.Id != gameLineRow.User.Id)
+                {
+                    prevUser = gameLineRow.User;
+                    btnNext_Click(null, null);
+                }
+                SetScore(gameLineRow.Factor, new DartbordEventArgs(
+                    gameLineRow.Sector * gameLineRow.Factor, "", gameLineRow.ThrowNum));
+            }
+            btnNext_Click(null, null);
+            // если игра прервалась после перебора, то нужно хотя бы одну серию сохранить для корректного открытия
         }
 
         private void AddGrids()
@@ -118,17 +123,18 @@ namespace DartsWin
             lblSerieNum.Text = GetSerieStatusText();
             UpdateStatusPanels();
             UpdatePossibleCombinations();
+            ctlDartbord1.ResetThrows();
         }
 
         private string GetSerieStatusText()
         {
             var addMessage = "";
             var sum = GetTeamSum(_gameFlow.CurrentTeam);
-            if (_gameFinisher.IsGameFinished(sum, GetCurrentSerie()))
+            if (_gameChecker.IsGameFinished(sum, GetCurrentSerie()))
             {
                 addMessage = string.Format(", победитель - {0}", _gameFlow.CurrentTeam.Name);
             }
-            if (_gameBuster.IsGameBusted(sum, GetCurrentSerie()))
+            if (_gameChecker.IsGameBusted(sum, GetCurrentSerie()))
             {
                 addMessage = string.Format(", перебор - {0}", _gameFlow.CurrentTeam.Name);
             }
@@ -178,7 +184,7 @@ namespace DartsWin
         private void InitThrow()
         {
             edThrow1.Value = edThrow2.Value = edThrow3.Value = 0;
-            edFactor1.Value = edFactor2.Value = edFactor3.Value = 1;
+            edFactor1.Value = edFactor2.Value = edFactor3.Value = 0;
             lblSumSerie.Text = lblSumThrow1.Text = lblSumThrow2.Text = lblSumThrow3.Text = @"0";
         }
 
@@ -266,23 +272,22 @@ namespace DartsWin
 
         private void btnNext_Click(object sender, EventArgs e)
         {            
-            var isGameBusted = _gameBuster.IsGameBusted(GetTeamSum(_gameFlow.CurrentTeam), GetCurrentSerie());
-            var isGameFinished = _gameFinisher.IsGameFinished(GetTeamSum(_gameFlow.CurrentTeam), GetCurrentSerie());
+            var isGameBusted = _gameChecker.IsGameBusted(GetTeamSum(_gameFlow.CurrentTeam), GetCurrentSerie());
+            var isGameFinished = _gameChecker.IsGameFinished(GetTeamSum(_gameFlow.CurrentTeam), GetCurrentSerie());
             var serie = isGameBusted ? GetZeroSerie() : GetCurrentSerie();
-            SaveSerieToDb(serie);
+            if (sender != null) SaveSerieToDb(serie);
             AddSerie(_gameFlow.CurrentUser, serie);
             AddGridRow(serie);
             if (isGameFinished)
             {
                 SwitchGui(false);
-                SaveGameEnd();
+                if (sender != null) SaveGameEnd();
                 return;
             }
             InitThrow();
             if (isGameBusted)
             {
-                _gameFlow.MoveNextTeam();     
-                ctlDartbord1.ResetThrows();
+                _gameFlow.MoveNextTeam();                     
             }
             else
             {
@@ -369,6 +374,7 @@ namespace DartsWin
                             GameHeader = _gameHeader,
                             Factor = t.Score.Factor,
                             Sector = t.Score.Sector,
+                            ThrowNum = t.Number,
                             Team = _gameFlow.CurrentTeam,
                             User = _gameFlow.CurrentUser
                         }
@@ -429,7 +435,17 @@ namespace DartsWin
                 (EnumerateControls().Single(c => c.Name == "edThrow" + e.Throw.ToString(CultureInfo.InvariantCulture)) as
                     NumericUpDown);
             if (edFactor != null) edFactor.Value = factor;
-            if (edThrow != null) edThrow.Value = e.Score / factor;
+            if (edThrow != null)
+            {
+                if (factor == 0)
+                {
+                    edThrow.Value = 0;
+                }
+                else
+                {
+                    edThrow.Value = e.Score/factor;
+                }
+            }
         }
 
         private void ctlDartbord1_DoubleThrown(object sender, DartbordEventArgs e)
