@@ -78,6 +78,10 @@
     <Compile Include="Migrations\201406251743518_Change winner to team.Designer.cs">
       <DependentUpon>201406251743518_Change winner to team.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407011755440_Add throw num to table game line.cs" />
+    <Compile Include="Migrations\201407011755440_Add throw num to table game line.Designer.cs">
+      <DependentUpon>201407011755440_Add throw num to table game line.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406251743518_Change winner to team.resx">
       <DependentUpon>201406251743518_Change winner to team.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407011755440_Add throw num to table game line.resx">
+      <DependentUpon>201407011755440_Add throw num to table game line.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

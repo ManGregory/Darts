@@ -44,7 +44,11 @@
     <Compile Include="DartsScore.cs" />
     <Compile Include="DartsSerie.cs" />
     <Compile Include="DartsThrow.cs" />
-    <Compile Include="GameFinisher501.cs" />
+    <Compile Include="GameChecker.cs" />
+    <Compile Include="GameCheckerBust.cs" />
+    <Compile Include="GameCheckerBust301.cs" />
+    <Compile Include="GameCheckerBust501.cs" />
+    <Compile Include="GameCheckerFactory.cs" />
     <Compile Include="GameFlow.cs" />
     <Compile Include="IGameBuster.cs" />
     <Compile Include="IGameFinisher.cs" />
