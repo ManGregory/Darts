@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data.Common;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.OleDb;
@@ -8,7 +9,7 @@ using Telerik.Pivot.Core;
 
 namespace DartsWin
 {
-    public sealed class Db
+    public sealed class Db : IDisposable
     {
         private readonly DbConnection _connection;
         private DartsContext _connectionContext;
@@ -29,6 +30,11 @@ namespace DartsWin
             {
                 _connectionContext = value;
             }
+        }
+
+        public void Dispose()
+        {
+            _connection.Close();
         }
     }
 }
