@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+            if (_connectionDb != null) _connectionDb.Dispose();
             base.Dispose(disposing);
         }
 
@@ -35,8 +36,8 @@
             this.btnUsers = new Telerik.WinControls.UI.RadButton();
             this.gridGames = new Telerik.WinControls.UI.RadGridView();
             this.pnlGame = new Telerik.WinControls.UI.RadPanel();
-            this.pnlAllGames = new Telerik.WinControls.UI.RadPanel();
             this.btnNewGame = new Telerik.WinControls.UI.RadButton();
+            this.pnlAllGames = new Telerik.WinControls.UI.RadPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlCatalogs)).BeginInit();
             this.pnlCatalogs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnRules)).BeginInit();
@@ -46,9 +47,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridGames.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGame)).BeginInit();
             this.pnlGame.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNewGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlAllGames)).BeginInit();
             this.pnlAllGames.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnNewGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,6 +107,7 @@
             this.gridGames.NewRowEnterKeyMode = Telerik.WinControls.UI.RadGridViewNewRowEnterKeyMode.EnterMovesToNextCell;
             this.gridGames.Size = new System.Drawing.Size(442, 207);
             this.gridGames.TabIndex = 1;
+            this.gridGames.DoubleClick += new System.EventHandler(this.gridGames_DoubleClick);
             // 
             // pnlGame
             // 
@@ -116,15 +118,6 @@
             this.pnlGame.Size = new System.Drawing.Size(442, 18);
             this.pnlGame.TabIndex = 0;
             // 
-            // pnlAllGames
-            // 
-            this.pnlAllGames.Controls.Add(this.gridGames);
-            this.pnlAllGames.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlAllGames.Location = new System.Drawing.Point(0, 18);
-            this.pnlAllGames.Name = "pnlAllGames";
-            this.pnlAllGames.Size = new System.Drawing.Size(442, 207);
-            this.pnlAllGames.TabIndex = 2;
-            // 
             // btnNewGame
             // 
             this.btnNewGame.Dock = System.Windows.Forms.DockStyle.Left;
@@ -134,6 +127,15 @@
             this.btnNewGame.TabIndex = 1;
             this.btnNewGame.Text = "Новая игра";
             this.btnNewGame.Click += new System.EventHandler(this.btnNewGame_Click);
+            // 
+            // pnlAllGames
+            // 
+            this.pnlAllGames.Controls.Add(this.gridGames);
+            this.pnlAllGames.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlAllGames.Location = new System.Drawing.Point(0, 18);
+            this.pnlAllGames.Name = "pnlAllGames";
+            this.pnlAllGames.Size = new System.Drawing.Size(442, 207);
+            this.pnlAllGames.TabIndex = 2;
             // 
             // MainForm
             // 
@@ -160,9 +162,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridGames)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGame)).EndInit();
             this.pnlGame.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnNewGame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlAllGames)).EndInit();
             this.pnlAllGames.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnNewGame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

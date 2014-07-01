@@ -29,11 +29,15 @@
         private void InitializeComponent()
         {
             this.pnlGame = new Telerik.WinControls.UI.RadPanel();
+            this.pnlCombinations = new Telerik.WinControls.UI.RadPanel();
+            this.lblPossibleCombinations = new Telerik.WinControls.UI.RadLabel();
+            this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
+            this.ctlDartbord1 = new DartsBoard.ctlDartbord();
             this.pnlPlayers = new Telerik.WinControls.UI.RadPanel();
             this.grpCurrentThrow = new Telerik.WinControls.UI.RadGroupBox();
-            this.lblSerieNum = new Telerik.WinControls.UI.RadLabel();
-            this.btnNext = new Telerik.WinControls.UI.RadButton();
             this.pnlSerie = new Telerik.WinControls.UI.RadPanel();
+            this.btnNext = new Telerik.WinControls.UI.RadButton();
+            this.lblSerieNum = new Telerik.WinControls.UI.RadLabel();
             this.lblSumSerie = new Telerik.WinControls.UI.RadLabel();
             this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             this.pnlThrow3 = new Telerik.WinControls.UI.RadPanel();
@@ -60,19 +64,19 @@
             this.pnlPlayerName = new Telerik.WinControls.UI.RadPanel();
             this.lblCurrentPlayer = new Telerik.WinControls.UI.RadLabel();
             this.pnlGameInfo = new Telerik.WinControls.UI.RadPanel();
-            this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
-            this.ctlDartbord1 = new DartsBoard.ctlDartbord();
-            this.pnlCombinations = new Telerik.WinControls.UI.RadPanel();
-            this.lblPossibleCombinations = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGame)).BeginInit();
             this.pnlGame.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlCombinations)).BeginInit();
+            this.pnlCombinations.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lblPossibleCombinations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlPlayers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpCurrentThrow)).BeginInit();
             this.grpCurrentThrow.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lblSerieNum)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlSerie)).BeginInit();
             this.pnlSerie.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblSerieNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblSumSerie)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlThrow3)).BeginInit();
@@ -104,10 +108,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.lblCurrentPlayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGameInfo)).BeginInit();
             this.pnlGameInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pnlCombinations)).BeginInit();
-            this.pnlCombinations.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lblPossibleCombinations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,6 +120,55 @@
             this.pnlGame.Name = "pnlGame";
             this.pnlGame.Size = new System.Drawing.Size(570, 643);
             this.pnlGame.TabIndex = 1;
+            // 
+            // pnlCombinations
+            // 
+            this.pnlCombinations.Controls.Add(this.lblPossibleCombinations);
+            this.pnlCombinations.Controls.Add(this.radLabel8);
+            this.pnlCombinations.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlCombinations.Location = new System.Drawing.Point(0, 518);
+            this.pnlCombinations.Name = "pnlCombinations";
+            this.pnlCombinations.Size = new System.Drawing.Size(570, 125);
+            this.pnlCombinations.TabIndex = 11;
+            // 
+            // lblPossibleCombinations
+            // 
+            this.lblPossibleCombinations.AutoSize = false;
+            this.lblPossibleCombinations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblPossibleCombinations.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblPossibleCombinations.ForeColor = System.Drawing.Color.Red;
+            this.lblPossibleCombinations.Location = new System.Drawing.Point(0, 55);
+            this.lblPossibleCombinations.Name = "lblPossibleCombinations";
+            this.lblPossibleCombinations.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.lblPossibleCombinations.Size = new System.Drawing.Size(570, 70);
+            this.lblPossibleCombinations.TabIndex = 10;
+            this.lblPossibleCombinations.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // radLabel8
+            // 
+            this.radLabel8.AutoSize = false;
+            this.radLabel8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radLabel8.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radLabel8.ForeColor = System.Drawing.Color.Red;
+            this.radLabel8.Location = new System.Drawing.Point(0, 0);
+            this.radLabel8.Name = "radLabel8";
+            this.radLabel8.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.radLabel8.Size = new System.Drawing.Size(570, 55);
+            this.radLabel8.TabIndex = 9;
+            this.radLabel8.Text = "Комбинации для завершения";
+            this.radLabel8.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ctlDartbord1
+            // 
+            this.ctlDartbord1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctlDartbord1.Location = new System.Drawing.Point(34, 12);
+            this.ctlDartbord1.Name = "ctlDartbord1";
+            this.ctlDartbord1.Size = new System.Drawing.Size(500, 500);
+            this.ctlDartbord1.TabIndex = 8;
+            this.ctlDartbord1.NoScoreThrown += new DartsBoard.Controls.DartsBoard.NoScoreThrownEventHandler(this.ctlDartbord1_NoScoreThrown);
+            this.ctlDartbord1.SingleThrown += new DartsBoard.Controls.DartsBoard.SingleThrownEventHandler(this.ctlDartbord1_SingleThrown);
+            this.ctlDartbord1.DoubleThrown += new DartsBoard.Controls.DartsBoard.DoubleThrownEventHandler(this.ctlDartbord1_DoubleThrown);
+            this.ctlDartbord1.TripleThrown += new DartsBoard.Controls.DartsBoard.TripleThrownEventHandler(this.ctlDartbord1_TripleThrown);
             // 
             // pnlPlayers
             // 
@@ -145,26 +194,6 @@
             this.grpCurrentThrow.Size = new System.Drawing.Size(432, 319);
             this.grpCurrentThrow.TabIndex = 0;
             // 
-            // lblSerieNum
-            // 
-            this.lblSerieNum.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSerieNum.Location = new System.Drawing.Point(10, 13);
-            this.lblSerieNum.Name = "lblSerieNum";
-            this.lblSerieNum.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.lblSerieNum.Size = new System.Drawing.Size(80, 33);
-            this.lblSerieNum.TabIndex = 7;
-            this.lblSerieNum.Text = "Игрок";
-            // 
-            // btnNext
-            // 
-            this.btnNext.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnNext.Location = new System.Drawing.Point(369, 13);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(45, 37);
-            this.btnNext.TabIndex = 6;
-            this.btnNext.Text = ">>";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
             // pnlSerie
             // 
             this.pnlSerie.Controls.Add(this.btnNext);
@@ -176,6 +205,26 @@
             this.pnlSerie.Name = "pnlSerie";
             this.pnlSerie.Size = new System.Drawing.Size(428, 106);
             this.pnlSerie.TabIndex = 5;
+            // 
+            // btnNext
+            // 
+            this.btnNext.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnNext.Location = new System.Drawing.Point(369, 13);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(45, 37);
+            this.btnNext.TabIndex = 6;
+            this.btnNext.Text = ">>";
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // lblSerieNum
+            // 
+            this.lblSerieNum.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblSerieNum.Location = new System.Drawing.Point(10, 13);
+            this.lblSerieNum.Name = "lblSerieNum";
+            this.lblSerieNum.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.lblSerieNum.Size = new System.Drawing.Size(80, 33);
+            this.lblSerieNum.TabIndex = 7;
+            this.lblSerieNum.Text = "Игрок";
             // 
             // lblSumSerie
             // 
@@ -240,19 +289,9 @@
             0,
             0,
             0});
-            this.edFactor3.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.edFactor3.Name = "edFactor3";
             this.edFactor3.Size = new System.Drawing.Size(62, 35);
             this.edFactor3.TabIndex = 6;
-            this.edFactor3.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.edFactor3.ValueChanged += new System.EventHandler(this.ThrowEditValueChanged);
             // 
             // radLabel7
@@ -331,19 +370,9 @@
             0,
             0,
             0});
-            this.edFactor2.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.edFactor2.Name = "edFactor2";
             this.edFactor2.Size = new System.Drawing.Size(62, 35);
             this.edFactor2.TabIndex = 6;
-            this.edFactor2.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.edFactor2.ValueChanged += new System.EventHandler(this.ThrowEditValueChanged);
             // 
             // radLabel6
@@ -422,19 +451,9 @@
             0,
             0,
             0});
-            this.edFactor1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.edFactor1.Name = "edFactor1";
             this.edFactor1.Size = new System.Drawing.Size(62, 35);
             this.edFactor1.TabIndex = 3;
-            this.edFactor1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.edFactor1.ValueChanged += new System.EventHandler(this.ThrowEditValueChanged);
             // 
             // radLabel5
@@ -500,55 +519,6 @@
             this.pnlGameInfo.Size = new System.Drawing.Size(432, 643);
             this.pnlGameInfo.TabIndex = 8;
             // 
-            // radLabel8
-            // 
-            this.radLabel8.AutoSize = false;
-            this.radLabel8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.radLabel8.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radLabel8.ForeColor = System.Drawing.Color.Red;
-            this.radLabel8.Location = new System.Drawing.Point(0, 0);
-            this.radLabel8.Name = "radLabel8";
-            this.radLabel8.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.radLabel8.Size = new System.Drawing.Size(570, 55);
-            this.radLabel8.TabIndex = 9;
-            this.radLabel8.Text = "Комбинации для завершения";
-            this.radLabel8.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ctlDartbord1
-            // 
-            this.ctlDartbord1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctlDartbord1.Location = new System.Drawing.Point(34, 12);
-            this.ctlDartbord1.Name = "ctlDartbord1";
-            this.ctlDartbord1.Size = new System.Drawing.Size(500, 500);
-            this.ctlDartbord1.TabIndex = 8;
-            this.ctlDartbord1.NoScoreThrown += new DartsBoard.Controls.DartsBoard.NoScoreThrownEventHandler(this.ctlDartbord1_NoScoreThrown);
-            this.ctlDartbord1.SingleThrown += new DartsBoard.Controls.DartsBoard.SingleThrownEventHandler(this.ctlDartbord1_SingleThrown);
-            this.ctlDartbord1.DoubleThrown += new DartsBoard.Controls.DartsBoard.DoubleThrownEventHandler(this.ctlDartbord1_DoubleThrown);
-            this.ctlDartbord1.TripleThrown += new DartsBoard.Controls.DartsBoard.TripleThrownEventHandler(this.ctlDartbord1_TripleThrown);
-            // 
-            // pnlCombinations
-            // 
-            this.pnlCombinations.Controls.Add(this.lblPossibleCombinations);
-            this.pnlCombinations.Controls.Add(this.radLabel8);
-            this.pnlCombinations.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlCombinations.Location = new System.Drawing.Point(0, 518);
-            this.pnlCombinations.Name = "pnlCombinations";
-            this.pnlCombinations.Size = new System.Drawing.Size(570, 125);
-            this.pnlCombinations.TabIndex = 11;
-            // 
-            // lblPossibleCombinations
-            // 
-            this.lblPossibleCombinations.AutoSize = false;
-            this.lblPossibleCombinations.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPossibleCombinations.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblPossibleCombinations.ForeColor = System.Drawing.Color.Red;
-            this.lblPossibleCombinations.Location = new System.Drawing.Point(0, 55);
-            this.lblPossibleCombinations.Name = "lblPossibleCombinations";
-            this.lblPossibleCombinations.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.lblPossibleCombinations.Size = new System.Drawing.Size(570, 70);
-            this.lblPossibleCombinations.TabIndex = 10;
-            this.lblPossibleCombinations.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -566,14 +536,18 @@
             this.ThemeName = "ControlDefault";
             ((System.ComponentModel.ISupportInitialize)(this.pnlGame)).EndInit();
             this.pnlGame.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pnlCombinations)).EndInit();
+            this.pnlCombinations.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lblPossibleCombinations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlPlayers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpCurrentThrow)).EndInit();
             this.grpCurrentThrow.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lblSerieNum)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlSerie)).EndInit();
             this.pnlSerie.ResumeLayout(false);
             this.pnlSerie.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lblSerieNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblSumSerie)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlThrow3)).EndInit();
@@ -609,10 +583,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.lblCurrentPlayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGameInfo)).EndInit();
             this.pnlGameInfo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radLabel8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pnlCombinations)).EndInit();
-            this.pnlCombinations.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lblPossibleCombinations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
