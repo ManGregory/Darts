@@ -14,6 +14,7 @@ namespace DartsLogic
 
         public int Sector { get; set; }
         public int Factor { get; set; }
+        public bool IsBust { get; set; }
 
         public bool IsDouble
         {
@@ -31,15 +32,20 @@ namespace DartsLogic
             }
         }
 
+        public DartsScore()
+        {
+            
+        }
+
         public DartsScore(int sector, int factor)
         {
             Sector = sector;
             Factor = factor;
         }
 
-        public DartsScore()
+        public DartsScore(int sector, int factor, bool isBust) : this(sector, factor)
         {
-            
+            IsBust = isBust;
         }
 
         public override string ToString()

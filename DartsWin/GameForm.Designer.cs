@@ -32,7 +32,6 @@
             this.pnlCombinations = new Telerik.WinControls.UI.RadPanel();
             this.lblPossibleCombinations = new Telerik.WinControls.UI.RadLabel();
             this.radLabel8 = new Telerik.WinControls.UI.RadLabel();
-            this.ctlDartbord1 = new DartsBoard.ctlDartbord();
             this.pnlPlayers = new Telerik.WinControls.UI.RadPanel();
             this.grpCurrentThrow = new Telerik.WinControls.UI.RadGroupBox();
             this.pnlSerie = new Telerik.WinControls.UI.RadPanel();
@@ -64,6 +63,7 @@
             this.pnlPlayerName = new Telerik.WinControls.UI.RadPanel();
             this.lblCurrentPlayer = new Telerik.WinControls.UI.RadLabel();
             this.pnlGameInfo = new Telerik.WinControls.UI.RadPanel();
+            this.ctlDartbord1 = new DartsBoard.ctlDartbord();
             ((System.ComponentModel.ISupportInitialize)(this.pnlGame)).BeginInit();
             this.pnlGame.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pnlCombinations)).BeginInit();
@@ -157,18 +157,6 @@
             this.radLabel8.TabIndex = 9;
             this.radLabel8.Text = "Комбинации для завершения";
             this.radLabel8.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ctlDartbord1
-            // 
-            this.ctlDartbord1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctlDartbord1.Location = new System.Drawing.Point(34, 12);
-            this.ctlDartbord1.Name = "ctlDartbord1";
-            this.ctlDartbord1.Size = new System.Drawing.Size(500, 500);
-            this.ctlDartbord1.TabIndex = 8;
-            this.ctlDartbord1.NoScoreThrown += new DartsBoard.Controls.DartsBoard.NoScoreThrownEventHandler(this.ctlDartbord1_NoScoreThrown);
-            this.ctlDartbord1.SingleThrown += new DartsBoard.Controls.DartsBoard.SingleThrownEventHandler(this.ctlDartbord1_SingleThrown);
-            this.ctlDartbord1.DoubleThrown += new DartsBoard.Controls.DartsBoard.DoubleThrownEventHandler(this.ctlDartbord1_DoubleThrown);
-            this.ctlDartbord1.TripleThrown += new DartsBoard.Controls.DartsBoard.TripleThrownEventHandler(this.ctlDartbord1_TripleThrown);
             // 
             // pnlPlayers
             // 
@@ -519,6 +507,18 @@
             this.pnlGameInfo.Size = new System.Drawing.Size(432, 643);
             this.pnlGameInfo.TabIndex = 8;
             // 
+            // ctlDartbord1
+            // 
+            this.ctlDartbord1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ctlDartbord1.Location = new System.Drawing.Point(34, 12);
+            this.ctlDartbord1.Name = "ctlDartbord1";
+            this.ctlDartbord1.Size = new System.Drawing.Size(500, 500);
+            this.ctlDartbord1.TabIndex = 8;
+            this.ctlDartbord1.NoScoreThrown += new DartsBoard.Controls.DartsBoard.NoScoreThrownEventHandler(this.ctlDartbord1_NoScoreThrown);
+            this.ctlDartbord1.SingleThrown += new DartsBoard.Controls.DartsBoard.SingleThrownEventHandler(this.ctlDartbord1_SingleThrown);
+            this.ctlDartbord1.DoubleThrown += new DartsBoard.Controls.DartsBoard.DoubleThrownEventHandler(this.ctlDartbord1_DoubleThrown);
+            this.ctlDartbord1.TripleThrown += new DartsBoard.Controls.DartsBoard.TripleThrownEventHandler(this.ctlDartbord1_TripleThrown);
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -534,6 +534,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Игра";
             this.ThemeName = "ControlDefault";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pnlGame)).EndInit();
             this.pnlGame.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pnlCombinations)).EndInit();
