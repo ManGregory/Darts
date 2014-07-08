@@ -42,27 +42,31 @@ namespace DartsWin
             LoadExistingGame();
         }
 
+        // todo remake, loading existing games, especially with busts
         private void LoadExistingGame()
         {
-            User prevUser = null;
-            foreach (
-                var gameLineRow in
-                    _connectionDb.ConnectionContext.GameLines.Where(gl => gl.GameHeaderId == _gameHeader.Id))
+            var gameLineRows = 
+                _connectionDb.ConnectionContext.GameLines.Where(gl => gl.GameHeaderId == _gameHeader.Id).ToList();
+            if (gameLineRows.Count > 0)
             {
-                if (prevUser == null)
+                var rowIndex = 0;
+                var prevRow = gameLineRows[rowIndex];
+                while (rowIndex < gameLineRows.Count)
                 {
-                    prevUser = gameLineRow.User;
+                    if (prevRow.User.Id != gameLineRows[rowIndex].User.Id)
+                    {
+                        btnNext_Click(prevRow, null);
+                        prevRow = gameLineRows[rowIndex];
+                    }
+                    SetScore(gameLineRows[rowIndex].Factor, 
+                        new DartbordEventArgs(
+                            gameLineRows[rowIndex].Sector * gameLineRows[rowIndex].Factor,
+                            "", 
+                            gameLineRows[rowIndex].ThrowNum)); 
+                    rowIndex++;
                 }
-                else if (prevUser.Id != gameLineRow.User.Id)
-                {
-                    prevUser = gameLineRow.User;
-                    btnNext_Click(null, null);
-                }
-                SetScore(gameLineRow.Factor, new DartbordEventArgs(
-                    gameLineRow.Sector * gameLineRow.Factor, "", gameLineRow.ThrowNum));
+                btnNext_Click(gameLineRows[rowIndex - 1], null);
             }
-            btnNext_Click(null, null);
-            // если игра прервалась после перебора, то нужно хотя бы одну серию сохранить для корректного открытия
         }
 
         private void AddGrids()
@@ -271,17 +275,19 @@ namespace DartsWin
         }
 
         private void btnNext_Click(object sender, EventArgs e)
-        {            
-            var isGameBusted = _gameChecker.IsGameBusted(GetTeamSum(_gameFlow.CurrentTeam), GetCurrentSerie());
+        {
+            var gameLineRow = sender as GameLine;
+            var isGameBusted = _gameChecker.IsGameBusted(GetTeamSum(_gameFlow.CurrentTeam), GetCurrentSerie()) || ((gameLineRow != null) && (gameLineRow.IsBust));
             var isGameFinished = _gameChecker.IsGameFinished(GetTeamSum(_gameFlow.CurrentTeam), GetCurrentSerie());
+
             var serie = isGameBusted ? GetZeroSerie() : GetCurrentSerie();
-            if (sender != null) SaveSerieToDb(serie);
+            if (gameLineRow == null) SaveSerieToDb(serie);
             AddSerie(_gameFlow.CurrentUser, serie);
             AddGridRow(serie);
             if (isGameFinished)
             {
                 SwitchGui(false);
-                if (sender != null) SaveGameEnd();
+                if (gameLineRow == null) SaveGameEnd();
                 return;
             }
             InitThrow();
@@ -313,9 +319,9 @@ namespace DartsWin
         {
             return new DartsSerie(new []
             {
-                new DartsThrow(1, new DartsScore(0, 0)),
-                new DartsThrow(2, new DartsScore(0, 0)),
-                new DartsThrow(3, new DartsScore(0, 0))
+                new DartsThrow(1, new DartsScore(0, 0, true)),
+                new DartsThrow(2, new DartsScore(0, 0, true)),
+                new DartsThrow(3, new DartsScore(0, 0, true))
             });
         }
 
@@ -375,8 +381,9 @@ namespace DartsWin
                             Factor = t.Score.Factor,
                             Sector = t.Score.Sector,
                             ThrowNum = t.Number,
+                            IsBust = t.Score.IsBust,
                             Team = _gameFlow.CurrentTeam,
-                            User = _gameFlow.CurrentUser
+                            User = _gameFlow.CurrentUser                            
                         }
                         );
                 }
@@ -421,7 +428,7 @@ namespace DartsWin
             };
         }
 
-        private void ctlDartbord1_SingleThrown(object sender, DartsBoard.Controls.DartsBoard.DartbordEventArgs e)
+        private void ctlDartbord1_SingleThrown(object sender, DartbordEventArgs e)
         {
             SetScore(1, e);
         }
@@ -443,6 +450,7 @@ namespace DartsWin
                 }
                 else
                 {
+                    // ReSharper disable once PossibleLossOfFraction
                     edThrow.Value = e.Score/factor;
                 }
             }
@@ -461,6 +469,26 @@ namespace DartsWin
         private void ctlDartbord1_TripleThrown(object sender, DartbordEventArgs e)
         {
             SetScore(3, e);
+        }
+
+        private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // если не все команды бросили хотя бы по одному разу
+            // загрузка игры будет невозможна, поэтому надо предупредить пользователя
+            // и удалить если потребуется заголовок
+            if (_gameFlow.CurrentSerieNum <= 1)
+            {
+                if (MessageBox.Show("", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    _connectionDb.ConnectionContext.GameHeaders.Remove(_gameHeader);
+                    _connectionDb.ConnectionContext.SaveChanges();
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

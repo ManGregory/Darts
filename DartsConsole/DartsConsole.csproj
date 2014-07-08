@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201407011755440_Add throw num to table game line.Designer.cs">
       <DependentUpon>201407011755440_Add throw num to table game line.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407021706082_Add is bust column.cs" />
+    <Compile Include="Migrations\201407021706082_Add is bust column.Designer.cs">
+      <DependentUpon>201407021706082_Add is bust column.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201407011755440_Add throw num to table game line.resx">
       <DependentUpon>201407011755440_Add throw num to table game line.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407021706082_Add is bust column.resx">
+      <DependentUpon>201407021706082_Add is bust column.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
