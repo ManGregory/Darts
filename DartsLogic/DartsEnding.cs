@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MoreLinq;
 
 namespace DartsLogic
 {
@@ -34,7 +35,7 @@ namespace DartsLogic
                         seriesToEnd.Select(serieToEnd => new DartsSerie(firstThrows.Concat(serieToEnd.Throws))));
                 }
             }
-            return result.Where(s => s.Throws.Count <= dartsRest);
+            return result.Where(s => s.Throws.Count <= dartsRest).DistinctBy(s => s.ToString(true));
         }
 
         private static void FillCombinations()
