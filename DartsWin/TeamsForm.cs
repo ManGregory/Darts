@@ -46,6 +46,7 @@ namespace DartsWin
             gridTeams.ShowFilteringRow = false;
             gridTeams.EnableFiltering = true;
             gridTeams.FilterPopupRequired += (sender, args) => args.FilterPopup = new RadListFilterPopup(args.Column, true);
+            gridTeams.UserAddedRow += (sender, args) => Save();
             gridTeams.CellEndEdit += (sender, args) => Save();
             gridTeams.UserDeletedRow += (sender, args) => Save();
             RadGridLocalizationProvider.CurrentProvider = new RussianRadGridLocalizationProvider();
