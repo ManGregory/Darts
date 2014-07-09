@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Drawing;
@@ -17,12 +18,16 @@ namespace DartsWin
 {
     public partial class MainForm : Telerik.WinControls.UI.RadForm
     {
-        private Db _connectionDb = new Db();
+        private Db _connectionDb;
         private BindingSource _gameBindingSource = new BindingSource();
 
         public MainForm()
         {
             InitializeComponent();
+            var connectionString = Convert.ToBoolean(ConfigurationManager.AppSettings["useRemote"])
+                ? ConfigurationManager.ConnectionStrings["DartsRemote"].ConnectionString
+                : string.Empty;
+            _connectionDb = new Db(connectionString);
             Database.SetInitializer(new CreateDatabaseIfNotExists<DartsContext>());
 
             LoadGames();
