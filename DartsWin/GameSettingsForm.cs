@@ -17,7 +17,7 @@ namespace DartsWin
         private readonly BindingSource _rulesBindingSource = new BindingSource();
         private readonly BindingSource _teamsBindingSource = new BindingSource();
         private readonly BindingSource _usersBindingSource = new BindingSource();
-        private Db _connectionDb;
+        private readonly Db _connectionDb;
 
         public GameSettingsForm(Db connectionDb)
         {

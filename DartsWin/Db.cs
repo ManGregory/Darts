@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Data;
 using System.Data.Common;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.OleDb;
@@ -16,25 +17,32 @@ namespace DartsWin
 
         public Db()
         {
-            _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DartsRemote"].ConnectionString);
+            
+        }
+
+        public Db(string connectionString)
+        {
+            if (!string.IsNullOrWhiteSpace(connectionString))
+            {
+                _connection = new SqlConnection(connectionString);
+            }                        
         }
         
         public DartsContext ConnectionContext
         {
             get
             {
-                return _connectionContext ?? (_connectionContext = new DartsContext());
-                //return _connectionContext ?? (_connectionContext = new DartsContext(_connection));
-            }
-            private set
-            {
-                _connectionContext = value;
-            }
+                return _connectionContext ?? (
+                    _connectionContext = _connection == null ? new DartsContext() : new DartsContext(_connection));
+            }            
         }
 
         public void Dispose()
         {
-            _connection.Close();
+            if ((_connection != null) && (_connection.State == ConnectionState.Open))
+            {
+                _connection.Close();
+            }
         }
     }
 }
