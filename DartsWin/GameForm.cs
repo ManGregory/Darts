@@ -22,7 +22,6 @@ namespace DartsWin
         private readonly GameChecker _gameChecker;
         private readonly Dictionary<User, List<DartsSerie>> _userSeries = new Dictionary<User, List<DartsSerie>>();  
 
-        // todo open existing game
         // todo delete member class
         public GameForm(Db connectionDb, Rule rule, List<Member> members, GameHeader gameHeader)
         {
@@ -42,7 +41,6 @@ namespace DartsWin
             LoadExistingGame();
         }
 
-        // todo remake, loading existing games, especially with busts
         private void LoadExistingGame()
         {
             var gameLineRows = 
