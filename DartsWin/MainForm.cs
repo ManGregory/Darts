@@ -18,8 +18,8 @@ namespace DartsWin
 {
     public partial class MainForm : Telerik.WinControls.UI.RadForm
     {
-        private Db _connectionDb;
-        private BindingSource _gameBindingSource = new BindingSource();
+        private readonly Db _connectionDb;
+        private readonly BindingSource _gameBindingSource = new BindingSource();
 
         public MainForm()
         {
@@ -34,13 +34,14 @@ namespace DartsWin
             gridGames.AutoGenerateColumns = true;
             gridGames.AllowAddNewRow = false;
             gridGames.DataSource = _gameBindingSource;
-            if (gridGames.Columns.Count == 5)
+            if (gridGames.Columns.Count == 6)
             {
                 gridGames.Columns[0].VisibleInColumnChooser = gridGames.Columns[0].IsVisible = false;
                 gridGames.Columns[1].HeaderText = "Начало игры";
                 gridGames.Columns[2].HeaderText = "Конец игры";
                 gridGames.Columns[3].HeaderText = "Тип игры";
                 gridGames.Columns[4].HeaderText = "Командная";
+                gridGames.Columns[5].HeaderText = "Победитель";
             }
             gridGames.ShowHeaderCellButtons = true;
             gridGames.ShowFilteringRow = false;
@@ -57,7 +58,8 @@ namespace DartsWin
             _gameBindingSource.DataSource = _connectionDb.ConnectionContext.GameHeaders
                 .Local.ToBindingList()
                 .Select(
-                    g => new {g.Id, g.BeginTimestamp, g.EndTimestamp, RuleName = g.Rule.Name, IsCommand = g.Rule.IsCommand})
+                g => new {g.Id, g.BeginTimestamp, g.EndTimestamp, RuleName = g.Rule.Name, 
+                    g.Rule.IsCommand, TeamWinnerName = g.TeamWinner != null ? g.TeamWinner.Name : string.Empty})
                 .OrderByDescending(g => g.BeginTimestamp);
         }
 
@@ -106,8 +108,7 @@ namespace DartsWin
             var gameHeader = _connectionDb.ConnectionContext.GameHeaders.Single(gh => gh.Id == gameId);
             var members =
                 _connectionDb.ConnectionContext.GameLines.Where(gl => gl.GameHeaderId == gameHeader.Id)
-                    .DistinctBy(gl => gl.TeamId)
-                    .Select(gl => new Member {Id = gl.TeamId.Value, Name = gl.Team.Name}).ToList();
+                    .DistinctBy(gl => gl.TeamId).Select(gl => gl.Team).ToList();
             using (var gameForm = new GameForm(_connectionDb, gameHeader.Rule, members, gameHeader))
             {
                 gameForm.ShowDialog(this);
