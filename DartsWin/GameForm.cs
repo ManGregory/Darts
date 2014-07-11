@@ -23,15 +23,14 @@ namespace DartsWin
         private readonly Dictionary<User, List<DartsSerie>> _userSeries = new Dictionary<User, List<DartsSerie>>();  
 
         // todo delete member class
-        public GameForm(Db connectionDb, Rule rule, List<Member> members, GameHeader gameHeader)
+        public GameForm(Db connectionDb, Rule rule, IEnumerable<Team> members, GameHeader gameHeader)
         {
             InitializeComponent();
             _connectionDb = connectionDb;
             _gameHeader = gameHeader;
             _rule = rule;
             _connectionDb.ConnectionContext.Teams.Load();
-            _teams.AddRange(_connectionDb.ConnectionContext.Teams.Local.ToList()
-                .Where(m => members.Exists(m1 => m1.Id == m.Id)));
+            _teams.AddRange(members);
             Text = GetFormText();
             _gameChecker = GameCheckerFactory.GetGameChecker(_rule);
             _gameFlow = new GameFlow(_rule, _teams);

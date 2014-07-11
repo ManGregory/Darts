@@ -59,9 +59,9 @@
             this.pnlCatalogs.Controls.Add(this.btnTeams);
             this.pnlCatalogs.Controls.Add(this.btnUsers);
             this.pnlCatalogs.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlCatalogs.Location = new System.Drawing.Point(0, 225);
+            this.pnlCatalogs.Location = new System.Drawing.Point(0, 254);
             this.pnlCatalogs.Name = "pnlCatalogs";
-            this.pnlCatalogs.Size = new System.Drawing.Size(442, 19);
+            this.pnlCatalogs.Size = new System.Drawing.Size(537, 19);
             this.pnlCatalogs.TabIndex = 0;
             // 
             // btnRules
@@ -105,7 +105,7 @@
             this.gridGames.MasterTemplate.EnableFiltering = true;
             this.gridGames.Name = "gridGames";
             this.gridGames.NewRowEnterKeyMode = Telerik.WinControls.UI.RadGridViewNewRowEnterKeyMode.EnterMovesToNextCell;
-            this.gridGames.Size = new System.Drawing.Size(442, 207);
+            this.gridGames.Size = new System.Drawing.Size(537, 236);
             this.gridGames.TabIndex = 1;
             this.gridGames.DoubleClick += new System.EventHandler(this.gridGames_DoubleClick);
             // 
@@ -115,7 +115,7 @@
             this.pnlGame.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlGame.Location = new System.Drawing.Point(0, 0);
             this.pnlGame.Name = "pnlGame";
-            this.pnlGame.Size = new System.Drawing.Size(442, 18);
+            this.pnlGame.Size = new System.Drawing.Size(537, 18);
             this.pnlGame.TabIndex = 0;
             // 
             // btnNewGame
@@ -134,14 +134,14 @@
             this.pnlAllGames.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlAllGames.Location = new System.Drawing.Point(0, 18);
             this.pnlAllGames.Name = "pnlAllGames";
-            this.pnlAllGames.Size = new System.Drawing.Size(442, 207);
+            this.pnlAllGames.Size = new System.Drawing.Size(537, 236);
             this.pnlAllGames.TabIndex = 2;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(442, 244);
+            this.ClientSize = new System.Drawing.Size(537, 273);
             this.Controls.Add(this.pnlAllGames);
             this.Controls.Add(this.pnlGame);
             this.Controls.Add(this.pnlCatalogs);
