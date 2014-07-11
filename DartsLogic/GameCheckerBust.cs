@@ -12,9 +12,10 @@ namespace DartsLogic
 
         public override bool IsGameFinished(int totalPoints, DartsSerie lastSerie)
         {
-            return (
+            var lastThrow = lastSerie.Throws.OrderBy(t => t.Number).LastOrDefault(t => t.GetSum() > 0);
+            return lastThrow != null && (
                 (totalPoints + lastSerie.GetSum() == Limit) &&
-                (lastSerie.Throws.Last(t => t.GetSum() > 0).Score.IsDouble));
+                (lastThrow.Score.IsDouble));
         }
 
         public override bool IsGameBusted(int totalPoints, DartsSerie lastSerie)
