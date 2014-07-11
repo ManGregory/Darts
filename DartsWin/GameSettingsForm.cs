@@ -12,7 +12,7 @@ namespace DartsWin
 {
     public partial class GameSettingsForm : RadForm
     {
-        private readonly List<Member> _members = new List<Member>();
+        private readonly List<Team> _members = new List<Team>();
         private readonly BindingSource _membersBindingSource = new BindingSource();
         private readonly BindingSource _rulesBindingSource = new BindingSource();
         private readonly BindingSource _teamsBindingSource = new BindingSource();
